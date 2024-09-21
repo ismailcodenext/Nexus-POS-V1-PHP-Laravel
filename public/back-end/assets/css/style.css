@@ -1,0 +1,658 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+/* ====================
+  Reset Default CSS Start
+  ==================== */
+
+:root {
+  --primary-font: "Poppins", sans-serif;
+  --white: #FFFFFF;
+  --text-color: #000000;
+  --text-color2: #008AEE;
+  --primary-color: #008AEE;
+  --stroke: #008AEE;
+  --hover-color: #BAE2FF;
+  --gray: #AAAAAA;
+  --box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 17%);
+  --dark-mode-bg: #292731;
+  --dark-mode-text: #c0c5cb;
+  --content-and-hover-bg: #414141;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: var(--primary-font);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--primary-font);
+  margin-top: 0;
+}
+
+p {
+  font-family: var(--primary-font);
+}
+
+span {
+  font-family: var(--primary-font);
+}
+
+a {
+  text-decoration: none !important;
+  font-family: var(--primary-font);
+}
+
+ul {
+  margin: 0 !important;
+  padding: 0 !important;
+  list-style: none;
+  font-family: var(--primary-font);
+}
+
+button {
+  border: none;
+  outline: none;
+  font-family: var(--primary-font);
+}
+
+input {
+  outline: none;
+  font-family: var(--primary-font);
+}
+
+label {
+  font-family: var(--primary-font);
+}
+
+/*====================
+Reset Default CSS End
+====================*/
+
+/* scrollbar */
+html ::-webkit-scrollbar {
+  width: 10px;
+  background-color: var(--hover-color);
+  cursor: pointer;
+}
+
+html ::-webkit-scrollbar-thumb {
+  background: var(--dark-mode-text);
+  width: 10px;
+  border-radius: 5px;
+}
+
+html ::-webkit-scrollbar-thumb:hover {
+  background: var(--gray);
+  cursor: pointer;
+}
+/* scrollbar */
+
+
+/* Cards Start */
+
+#cards {
+  width: 100%;
+  margin-top: -10px;
+}
+
+#cards .card-body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--hover-color);
+  border-radius: 6px;
+  transition: 0.3s;
+  margin: 10px 0;
+}
+
+#cards .card-body:hover {
+  box-shadow: var(--box-shadow);
+}
+
+#cards .card-icon {
+  display: block;
+  margin: auto;
+  width: 50px;
+  height: 50px;
+}
+
+#cards .card-icon img {
+  width: 100%;
+}
+
+#cards .card-icon svg {
+  width: 100% !important;
+}
+
+#cards h4 {
+  color: var(--text-color);
+  font-size: 16px;
+  font-weight: 600;
+  font-family: var(--primary-font);
+  margin: 10px 0 !important;
+  margin-bottom: 0px;
+}
+
+#cards h5 {
+  color: var(--text-color);
+  font-size: 24px;
+  font-weight: 600;
+  font-family: var(--primary-font);
+  text-align: center;
+  margin: 0;
+}
+
+/* Cards End */
+
+
+#data_table {
+  background: var(--white);
+  border-radius: 4px;
+  margin-top: 30px;
+  padding-bottom: 20px;
+}
+
+#example {
+  font-family: var(--primary-font);
+  text-align: center;
+}
+
+#data_table .invoice-btn{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 10px;
+}
+
+#data_table .invoice-btn h1{
+  font-size: 26px;
+  font-weight: 600;
+  color: #004F88;
+}
+
+#data_table .table-btn-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+#data_table .create-invoice {
+  display: inline-block;
+  display: flex;
+  align-items: center;
+  padding: 0px 10px;
+  white-space: nowrap;
+  border-radius: 5px;
+  background: #77C5FD;
+  color: #004F88 !important;
+  font-family: var(--primary-font);
+  border: none;
+  height: 35px;
+}
+
+#data_table .create-invoice span {
+  font-size: 28px;
+  padding-right: 6px;
+  color: #004F88;
+}
+
+#data_table .create-invoice h3 {
+  font-size: 14px;
+  margin: 0;
+  color: #004F88;
+  font-family: var(--primary-font);
+}
+
+#data_table .view-more-btn{
+  display: inline-block;
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  padding:  6px 10px;
+  white-space: nowrap;
+  border-radius: 5px;
+  background: var(--primary-color);
+  color: var(--white) !important;
+  font-family: var(--primary-font);
+  border: none;
+}
+
+#example th {
+  white-space: nowrap;
+  font-size: 18px;
+  color: var(--text-color);
+}
+
+#example th:nth-child(1) {
+  text-align: left;
+}
+
+#example th:nth-child(8) {
+  padding-left:15px !important;
+  padding-right: 15px !important;
+  text-align: center;
+}
+
+
+
+#example th:nth-child(8).sorting {
+  background-image: none !important;
+  cursor: default;
+}
+
+#example td:nth-child(8) {
+  padding-right: 10px !important;
+  text-align: center;
+}
+
+#example td:nth-child(7) {
+  text-align: center;
+}
+
+#example tr {
+  background: var(--white) !important;
+  transition: 0.2s;
+}
+
+#example tbody tr:hover {
+  background: var(--hover-color) !important;
+}
+
+#example .project {
+  text-align: left;
+  padding: 0px 10px;
+  width: 20%;
+  white-space: wrap;
+}
+
+#example .project span,
+#example .serial span {
+  font-size: 14px !important;
+  font-weight: normal;
+  color: var(--text-color);
+  text-align: left;
+}
+
+#example .serial {
+  text-align: left;
+  padding-left: 33px;
+}
+
+#example .serial span {
+  margin-left: -20px !important;
+}
+
+#example .invoice  {
+  padding: 0px 10px;
+}
+
+#example .invoice span {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-color);
+}
+
+#example .client {
+  width: 20% !important;
+  padding: 0px 10px !important;
+  position: relative;
+  margin: auto;
+  text-align: left !important;
+  vertical-align: super !important;
+}
+
+#example .client-details {
+  width: 100%;
+  white-space: nowrap;
+  position: absolute;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  background: none !important;
+  margin-top: 10px;
+}
+
+#example .client-details .client-profile img {
+  width: 42px !important;
+  height: 42px !important;
+  border-radius: 50%;
+}
+
+#example .client-details .details {
+  display: block;
+  margin-left: 10px;
+}
+
+#example .client-details h1 {
+  font-size: 14px;
+  color: var(--text-color);
+  font-weight: 700;
+  font-family: var(--primary-font);
+  text-align: left;
+  margin-bottom: 8px;
+}
+
+#example .client-details h2 {
+  font-size: 14px;
+  font-weight: normal;
+  font-family: var(--primary-font);
+  text-align: left;
+  margin: 0;
+}
+
+#example .total {
+  padding: 0px 10px;
+}
+
+#example .total h1 {
+  font-size: 14px;
+  font-weight: 500;
+  padding-top: 8px;
+}
+
+#example .total h1 span{
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--primary-color);
+}
+
+#example .total h2 {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+#example .total h2 span {
+  font-size: 14px;
+  color: #14CC52;
+  padding-right: 5px;
+}
+
+#example .total h3 {
+  font-size: 14px;
+  color: #FF2929;
+  margin: 0;
+  padding-bottom: 8px;
+}
+
+#example .date span {
+  font-size: 14px;
+  color: var(--text-color);
+  font-weight: normal;
+}
+
+#example .date {
+  padding: 0px 10px;
+}
+
+#example .status .paid {
+  height: 10px;
+  font-size: 14px;
+  color: var(--white);
+  background: #14CC52;
+  box-shadow: 0px 0px 10px 0px #14CC52;
+  padding: 0 10px;
+  border-radius: 18px;
+  font-weight: normal;
+  padding: 3px 12px;
+}
+
+#example .status .due {
+  font-size: 14px;
+  color: var(--white) !important;
+  font-weight: normal;
+  color: var(--text-color2);
+  background: #FF2929;
+  box-shadow: 0px 0px 10px 0px #FF2929;
+  padding: 0 10px;
+  border-radius: 18px;
+  font-weight: normal;
+  padding: 3px 12px;
+}
+
+#example .status .partial-paid {
+  font-size: 14px;
+  color: var(--white) !important;
+  font-weight: normal;
+  color: var(--text-color2);
+  background: #FF8C3E;
+  box-shadow: 0px 0px 10px 0px #FF8C3E;
+  padding: 0 10px;
+  border-radius: 18px;
+  font-weight: normal;
+  padding: 3px 12px;
+}
+
+#example td.edit {
+  padding: 0px !important;
+}
+
+#example .edit svg {
+  width: 42px !important;
+  height: 42px;
+}
+
+#example .edit svg path {
+  transition: 0.8s !important;
+}
+
+#example .edit svg:hover rect {
+  fill: var(--text-color2) !important;
+}
+
+#example .edit svg:hover path {
+  fill: var(--white) !important;
+}
+
+#example.dataTable {
+  border: none !important;
+}
+
+#example td {
+  text-align: left;
+  white-space: nowrap;
+  vertical-align:middle !important;
+  border-top: none !important;
+  border-bottom: 1px solid #DADADA;
+}
+
+#data_table thead th{
+  text-align: left;
+  padding: 10px;
+}
+
+
+#data_table thead th {
+  text-align: left;
+  border-bottom: 1px solid #DADADA;
+}
+
+#data_table thead th:nth-child(7) {
+  text-align: center !important;
+}
+
+#data_table thead th:nth-child(8) {
+  text-align: center !important;
+}
+
+.button-container .custom-pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.custom-pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.custom-pagination .button {
+  margin: 0 5px;
+  padding: 5px 10px;
+  border: none;
+  background: none;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-color2);
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.custom-pagination button.disabled {
+  background-color: #f3f3f3;
+  cursor: not-allowed;
+  display: none;
+}
+
+.custom-pagination .page-number {
+  width: 28px;
+  height: 28px;
+  font-weight: 500;
+  border-radius: 50%;
+  margin: 3px 5px 0px 5px;
+  background: var(--white) !important;
+  color: var(--text-color2) !important;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.custom-pagination .page-number.active {
+  background-color: var(--text-color2) !important;
+  color: var(--white) !important;
+}
+
+.copyright p {
+  font-size: 18px;
+  font-weight: normal;
+  color: var(--text-color);
+  padding: 20px 0;
+  margin: 0;
+}
+
+.dataTables_info {
+  margin: 20px 0 !important;
+}
+
+.table-wrapper::-webkit-scrollbar {
+  height: 10px !important;
+  background-color: rgb(221, 221, 221);
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.table-wrapper::-webkit-scrollbar-thumb {
+  background: #77C5FD;
+  height: 10px !important;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.table-wrapper {
+  width: 100%;
+  overflow-y: hidden;
+  overflow-x: auto;
+  border-radius: 4px;
+
+}
+
+@media screen and (max-width: 1350px) {
+  #example {
+    width: 1100px !important;
+  }
+
+  #example .project {
+    padding: 0px 10px !important;
+  }
+
+  #example .total {
+    padding: 0px 10px !important;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .file-export-item svg {
+    width: 30px;
+    height: 30px;
+  }
+
+  .table-searchbox {
+    width: 200px;
+  }
+
+  .file-export-item .create-invoice {
+    white-space: nowrap;
+    padding: 0px 8px;
+    height: 30px;
+  }
+
+  .file-export-item .create-invoice h3 {
+    font-size: 14px !important;
+  }
+
+  .file-export-item .create-invoice span {
+    font-size: 18px !important;
+    padding: 2px;
+  }
+  .btn-secondary {
+    font-size: 16px !important;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .button-container {
+    display: block;
+    justify-content: center;
+  }
+  .file-export-item {
+    display: flex;
+    justify-content: center;
+    padding-top: 20px;
+  }
+
+  .button-container .search-item {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .table-searchbox {
+    width: 100%;
+  }
+  .dropdown-menu-custom {
+    left: -66px !important;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .file-export-item svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .file-export-item .dt-button {
+    margin-left: 4px;
+  }
+
+  .file-export-item .create-invoice {
+    white-space: nowrap;
+    padding: 0px 4px;
+    height: 28px;
+  }
+
+  .file-export-item .create-invoice h3 {
+    font-size: 12px !important;
+    margin-bottom: -2px;
+  }
+
+  .file-export-item .create-invoice span {
+    font-size: 18px !important;
+    padding: 2px;
+  }
+}
