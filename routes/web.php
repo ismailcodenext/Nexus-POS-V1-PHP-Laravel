@@ -24,6 +24,8 @@ Route::view('/nexus-login-page', 'components.front-end.auth.registration-form');
 
 Route::view('/admin-dashboard-brand', 'pages.back-end-page.brand-page');
 Route::view('/admin-dashboard-category', 'pages.back-end-page.category-page');
+Route::view('/admin-dashboard-unit', 'pages.back-end-page.unit-page');
+Route::view('/admin-dashboard-supriler', 'pages.back-end-page.suprlius-page');
 
 
 

@@ -963,9 +963,25 @@
                   <i class="fa-solid fa-circle"></i
                   ><span data-key="t-calendar">Brand List</span>
                 </a>
+
+              </li>
+              <li>
+
                 <a href="{{url('admin-dashboard-category')}}">
                   <i class="fa-solid fa-circle"></i
                   ><span data-key="t-calendar">Category List</span>
+                </a>
+              </li>
+              <li>
+                <a href="{{url('admin-dashboard-unit')}}">
+                  <i class="fa-solid fa-circle"></i
+                  ><span data-key="t-calendar">Unit List</span>
+                </a>
+              </li>
+              <li>
+                <a href="{{url('admin-dashboard-supriler')}}">
+                  <i class="fa-solid fa-circle"></i
+                  ><span data-key="t-calendar">Supriler List</span>
                 </a>
               </li>
             </ul>
