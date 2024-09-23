@@ -20,7 +20,12 @@ Route::view('/nexus-login-page', 'components.front-end.auth.registration-form');
 // Front-end View Route Api End
 
 
-// Dashboard View Route Start
+// Dashboard View Page Route Start
+
+Route::view('/admin-dashboard-brand', 'pages.back-end-page.brand-page');
+Route::view('/admin-dashboard-category', 'pages.back-end-page.category-page');
+
+
 
 Route::view('/admin-dashboard', 'components.back-end.dashboardsummery');
 Route::view('/customer-page', 'pages.back-end-page.modal-page');

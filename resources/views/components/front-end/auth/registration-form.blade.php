@@ -166,7 +166,7 @@ async function SubmitLogin(event) {
         errorToast("Password is required");
     } else {
         showLoader();
-        let res = await axios.post("ayrveda-admin-login", { email: email, password: password });
+        let res = await axios.post("nexus-login-page", { email: email, password: password });
         hideLoader();
         if (res.status === 200 && res.data['status'] === 'success') {
             setToken(res.data['token']);
