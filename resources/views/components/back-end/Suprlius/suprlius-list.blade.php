@@ -4,9 +4,7 @@
       <!-- Table Start -->
       <div class="bredcam">
         <div class="bredcam-title">
-          <h1>Finances</h1>
-          <span>|</span>
-          <a class="bredcam-invoice" href="#">Invoices</a>
+          <h1>Supplier List</h1>
         </div>
       </div>
       <div class="data-table">
@@ -109,7 +107,7 @@
                   class="create-invoice"
                   type="button"
                 >
-                  + Create Brand
+                  + Create Supplier
                 </button>
                 <div class="icon-buttons">
                   <button id="copyBtn">

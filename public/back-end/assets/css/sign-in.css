@@ -1,209 +1,286 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+/* ====================
+  Reset Default CSS Start
+  ==================== */
+
+:root {
+  --primary-font: "Poppins", sans-serif;
+  --white: #ffffff;
+  --text-color: #000000;
+  --text-color2: #008aee;
+  --primary-color: #008aee;
+  --stroke: #008aee;
+  --hover-color: #bae2ff;
+  --gray: #aaaaaa;
+  --box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 17%);
+  --dark-mode-bg: #292731;
+  --dark-mode-text: #c0c5cb;
+  --content-and-hover-bg: #414141;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: var(--primary-font);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--primary-font);
+  margin-top: 0;
+}
+
+p {
+  font-family: var(--primary-font);
+}
+
+span {
+  font-family: var(--primary-font);
+}
+
+a {
+  text-decoration: none !important;
+  font-family: var(--primary-font);
+}
+
+ul {
+  margin: 0 !important;
+  padding: 0 !important;
+  list-style: none;
+  font-family: var(--primary-font);
+}
+
+button {
+  border: none;
+  outline: none;
+  font-family: var(--primary-font);
+}
+
+input {
+  outline: none;
+  font-family: var(--primary-font);
+}
+
+label {
+  font-family: var(--primary-font);
+}
+
+/*====================
+Reset Default CSS End
+====================*/
+
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background: white;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: white;
 }
 
 .container {
-    max-width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background-image: url(../img/Sign-In-bg.png);
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+  max-width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-image: url(../img/Sign-In-bg.png);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .container .card {
-    width: 800px;
-    background: rgba(255, 255, 255, 0.4);
-    font-family: var(--primary-font);
-    padding: 20px;
-    border-radius: 20px;
-    box-shadow: 0px 1px 8px rgba(0, 0, 0, 0.16);
-    backdrop-filter: blur(4px);
-    text-align: center;
-    padding: 16px;
+  width: 800px;
+  background: rgba(255, 255, 255, 0.4);
+  font-family: var(--primary-font);
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0px 1px 8px rgba(0, 0, 0, 0.16);
+  backdrop-filter: blur(4px);
+  text-align: center;
+  padding: 16px;
 }
 
 .card .card-wrapper {
-    width: 100%;
-    display: flex;
-    align-items: center;
+  width: 100%;
+  display: flex;
+  align-items: center;
 }
 
 .card .card-wrapper .card-image {
-    width: 50%;
+  width: 50%;
 }
 
 .card .card-wrapper .card-item {
-    width: 50%;
-    padding: 30px 30px 30px 46px;
+  width: 50%;
+  padding: 30px 30px 30px 46px;
 }
 
 .card .card-wrapper img {
-    height: auto;
-    width: 100%;
-    border-radius: 16px;
+  height: auto;
+  width: 100%;
+  border-radius: 16px;
 }
 
 .card .brand-logo {
-    width: 100%;
-    padding-bottom: 20px;
+  width: 100%;
+  padding-bottom: 20px;
 }
 
 .card .brand-logo img {
-    width: 180px;
-    height: 60px;
+  width: 180px;
+  height: 60px;
 }
 
 .card h2 {
-    font-size: 23px;
-    font-weight: 600;
-    font-family: var(--primary-font);
-    color: var(--text-color);
-    margin-bottom: 30px;
+  font-size: 23px;
+  font-weight: 600;
+  font-family: var(--primary-font);
+  color: var(--text-color);
+  margin-bottom: 30px;
 }
 
 .card form {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .card form label {
-    position: relative;
-    margin-bottom: 5px;
-    margin: 0px;
+  position: relative;
+  margin-bottom: 5px;
+  margin: 0px;
 }
 
 .card label .hide-icon {
-    width: 25px;
-    position: absolute;
-    right: 10px;
-    top: 12px;
+  width: 25px;
+  position: absolute;
+  right: 10px;
+  top: 12px;
 }
 
 .card input {
-    position: relative;
-    width: 100%;
-    padding: 12px 10px;
-    margin-bottom: 12px;
-    border: 1px solid var(--gray);
-    background: rgba(255, 255, 255, 0.4);
-    border-radius: 8px;
+  position: relative;
+  width: 100%;
+  padding: 12px 10px;
+  margin-bottom: 12px;
+  border: 1px solid var(--gray);
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 8px;
 }
 
 .card input:focus {
-    border-color: var(--primary-color) !important;
+  border-color: var(--primary-color) !important;
 }
 
 .card input::placeholder {
-    color: var(--gray) !important;
+  color: var(--gray) !important;
 }
 
 .card .forgot-password {
-    text-align: right;
-    font-size: 15px;
-    font-weight: 600;
-    font-family: var(--primary-font);
-    color: var(--text-color2);
-    margin-bottom: 16px;
+  text-align: right;
+  font-size: 15px;
+  font-weight: 600;
+  font-family: var(--primary-font);
+  color: var(--text-color2);
+  margin-bottom: 16px;
 }
 
 .card button {
-    display: inline-block;
-    padding: 10px;
-    background-color: var(--primary-color);
-    color: var(--white);
-    border: none;
-    border-radius: 8px;
+  display: inline-block;
+  padding: 10px;
+  background-color: var(--primary-color);
+  color: var(--white);
+  border: none;
+  border-radius: 8px;
 }
 
 .card .switch {
-    margin-top: 30px;
-    font-size: 16px;
-    font-weight: 600;
-    font-family: var(--primary-font);
+  margin-top: 30px;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: var(--primary-font);
 }
 
 .switch a {
-    color: #007bff;
-    text-decoration: none;
+  color: #007bff;
+  text-decoration: none;
 }
 
 .password-container {
-    position: relative;
-    display: flex;
-    align-items: center;
+  position: relative;
+  display: flex;
+  align-items: center;
 }
 .password-container #togglePassword {
-    position: absolute;
-    right: 20px;
-    top: 10px;
+  position: absolute;
+  right: 20px;
+  top: 10px;
 }
 .password-container input {
-    width: 100%;
-    padding-right: 30px; /* Optional, to keep input field look consistent */
+  width: 100%;
+  padding-right: 30px; /* Optional, to keep input field look consistent */
 }
 .toggle-password {
-    position: relative;
-    top: -10px; /* Adjust based on your design needs */
-    cursor: pointer;
-    z-index: 2; /* Ensure the icon is clickable */
-    padding: 5px;
+  position: relative;
+  top: -10px; /* Adjust based on your design needs */
+  cursor: pointer;
+  z-index: 2; /* Ensure the icon is clickable */
+  padding: 5px;
 }
 
 .card form .cheakbox {
-    display: flex;
-    justify-content: left;
-    align-items: center;
-    text-align: left;
-    margin-bottom: 20px;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  text-align: left;
+  margin-bottom: 20px;
 }
 
 .card form .cheakbox a {
-    color: var(--primary-color);
+  color: var(--primary-color);
 }
 
 .card form .cheakbox input {
-    width: 18px;
-    height: 18px;
-    display: flex;
-    margin: 0px;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  margin: 0px;
 }
 
 .card form .cheakbox h1 {
-    text-align: left;
-    font-size: 16px;
-    padding-left: 10px;
-    margin: 0px;
+  text-align: left;
+  font-size: 16px;
+  padding-left: 10px;
+  margin: 0px;
 }
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 @media screen and (max-width: 750px) {
-    .card .card-wrapper .card-image {
-        display: none;
-    }
+  .card .card-wrapper .card-image {
+    display: none;
+  }
 
-    .card .card-wrapper .card-item {
-        width: 100%;
-        padding: 0px;
-    }
+  .card .card-wrapper .card-item {
+    width: 100%;
+    padding: 0px;
+  }
 
-    .card .brand-logo img {
-        width: 150px;
-        height: 50px;
-    }
+  .card .brand-logo img {
+    width: 150px;
+    height: 50px;
+  }
 
-    .card h2 {
-        font-size: 20px;
-    }
+  .card h2 {
+    font-size: 20px;
+  }
 }

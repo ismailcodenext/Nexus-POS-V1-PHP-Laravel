@@ -186,7 +186,9 @@
                       <p>PNG,JPEG or GIF (up to 1 MB)</p>
                     </div>
                   </div>
-                  <button type="submit" class="submit">Submit</button>
+                  <div class="upload-profile">
+                    <button onclick="Save()" type="submit" class="submit">Submit</button>
+                </div>
                 </div>
               </div>
             </div>

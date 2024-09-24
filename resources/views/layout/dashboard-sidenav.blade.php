@@ -552,12 +552,12 @@
               <span class="align-middle">Lock screen</span></a
             >
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="auth-logout.html"
-              ><i
-                class="mdi mdi-logout text-muted font-size-16 align-middle me-2"
-              ></i>
-              <span class="align-middle">Logout</span></a
-            >
+            <a class="dropdown-item" href="#" onclick="userlogout(event)">
+                <i class="mdi mdi-logout text-muted font-size-16 align-middle me-2"></i>
+                <span class="align-middle">Logout</span>
+            </a>
+
+
           </div>
         </div>
       </div>
@@ -1068,19 +1068,28 @@
 
 
   <script>
-//         async function logout() {
+    async function userlogout(event) {
+        event.preventDefault(); // Prevent the default link behavior
 
-// try {
-//     let res = await axios.get("/logout", HeaderToken());
-//     localStorage.clear();
-//     sessionStorage.clear();
-//     window.location.href = "/userLogin";
-// } catch (e) {
-//     errorToast(res.data['message']);
-// }
-// }
+        try {
+            // Make sure HeaderToken() returns a valid authorization header
+            let res = await axios.get("/naxus-pos-logout", HeaderToken());
 
-  </script>
+            // Clear localStorage and sessionStorage
+            localStorage.clear();
+            sessionStorage.clear();
+
+            // Redirect the user to the login page after successful logout
+            window.location.href = "/nexus-login-page";
+        } catch (e) {
+            // Handle error and show error message using errorToast
+            console.error("Logout error:", e);
+            errorToast(e.response ? e.response.data.message : "Something went wrong");
+        }
+    }
+    </script>
+
+
 
 
     <!-- jQuery library for DOM manipulation and event handling -->

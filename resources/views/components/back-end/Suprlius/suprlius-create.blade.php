@@ -2,10 +2,10 @@
 <section id="myModal" class="modal">
     <div class="modal-content">
         <div id="popup-modal">
-            <form id="signup">
+            <form id="signup" onsubmit="return Save(event)">
                 <div class="modal-title">
                     <h1>Create Brand</h1>
-                    <span class="close-btn close">
+                    <span class="close-btn close" onclick="closeModal()">
                         <i class="fa-solid fa-xmark"></i>
                     </span>
                 </div>
@@ -23,11 +23,13 @@
                                             <image id="image0_1204_6" width="200" height="200" />
                                         </defs>
                                     </svg>
+                                    <!-- Add an img element for the image preview -->
+                                    <img id="imagePreview" style="display:none; max-width:100%; height:auto;" alt="Image Preview" />
                                 </div>
 
                                 <div class="profile-wrapper">
                                     <label class="custom-file-input-wrapper">
-                                        <input type="file" class="custom-file-input" aria-label="Upload Photo" id="SuprilerImg" />
+                                        <input type="file" class="custom-file-input" aria-label="Upload Photo" id="SuprilerImg"  />
                                     </label>
                                     <p>PNG, JPEG or GIF (up to 1 MB)</p>
                                 </div>
@@ -39,38 +41,40 @@
 
                     <div class="col-lg-6">
                         <label class="data">
-                            <input type="text" name="name" placeholder="Enter  Name" id="SuprilerName" required /><br />
+                            <input type="text" name="name" placeholder="Enter Name" id="SuprilerName"  /><br />
                         </label>
                     </div>
                     <div class="col-lg-6">
                         <label class="data">
-                            <input type="text" name="company" placeholder="Enter  Company Name" id="SuprilerCompany" required /><br />
+                            <input type="text" name="company" placeholder="Enter Company Name" id="SuprilerCompany"  /><br />
                         </label>
                     </div>
                     <div class="col-lg-6">
                         <label class="data">
-                            <input type="text" name="mobile"  placeholder="Enter  Mobile Number" id="SuprilerMobile" required /><br />
+                            <input type="text" name="mobile" placeholder="Enter Mobile Number" id="SuprilerMobile"  /><br />
                         </label>
                     </div>
                     <div class="col-lg-6">
                         <label class="data">
-                            <input type="text" name="address"  placeholder="Enter Address" id="SuprilerAddress" required /><br />
+                            <input type="text" name="address" placeholder="Enter Address" id="SuprilerAddress"  /><br />
                         </label>
                     </div>
                     <div class="col-lg-6">
                         <label class="data">
-                            <input type="text" name="email"  placeholder="Enter email" id="Suprileremail" required /><br />
+                            <input type="email" name="email" placeholder="Enter Email" id="SuprilerEmail"  /><br />
                         </label>
                     </div>
                     <div class="col-lg-6">
                         <label class="country">
-                            <select name="status" id="SelectStatus">
-                                <option>Select Status</option>
+                            <select name="status" id="SelectStatus" >
+                                <option value="">Select Status</option>
                                 <option value="Active">Active</option>
                                 <option value="InActive">InActive</option>
                             </select><br />
                         </label>
-                        <button onclick="Save()" type="submit" class="submit">Submit</button>
+                        <div class="upload-profile">
+                            <button type="submit" class="submit">Submit</button>
+                        </div>
                     </div>
                 </div>
             </form>
@@ -80,64 +84,91 @@
 <!-- Finance- Pop Up Modal End -->
 
 <script>
-    async function Save() {
-        try {
-            let SuprilerName = document.getElementById('SuprilerName').value;
-            let SuprilerCompany = document.getElementById('SuprilerCompany').value;
-            let SuprilerMobile = document.getElementById('SuprilerMobile').value;
-            let SuprilerAddress = document.getElementById('SuprilerAddress').value;
-            let SuprilerEmail = document.getElementById('Suprileremail').value;
-            let SelectStatus = document.getElementById('SelectStatus').value;
-            let imgInput = document.getElementById('SuprilerImg');
-            let imgFile = imgInput.files[0];
 
-            // Validation
-            if (SuprilerName.length === 0) {
-                errorToast("Supplier Name Required !");
-            } else if (SuprilerCompany.length === 0) {
-                errorToast("Company Name Required !");
-            } else if (SuprilerMobile.length === 0) {
-                errorToast("Mobile Number Required !");
-            } else if (SuprilerAddress.length === 0) {
-                errorToast("Address Required !");
-            } else if (SuprilerEmail.length === 0) {
-                errorToast("Email Required !");
-            } else if (SelectStatus.length === 0) {
-                errorToast("Status Required !");
-            } else if (!imgInput.files || imgInput.files.length === 0) {
-                errorToast("Photo Required !");
-                return;
-            } else {
-                // Creating form data for submission
-                let formData = new FormData();
-                formData.append('name', SuprilerName);
-                formData.append('company', SuprilerCompany);
-                formData.append('mobile', SuprilerMobile);
-                formData.append('address', SuprilerAddress);
-                formData.append('email', SuprilerEmail);
-                formData.append('status', SelectStatus);
-                formData.append('img_url', imgFile); // Append image file
+document.getElementById('SuprilerImg').addEventListener('change', function (event) {
+    const imgFile = event.target.files[0];
+    const imgPreview = document.getElementById('imagePreview');
 
-                const config = {
-                    headers: {
-                        'content-type': 'multipart/form-data',
-                        ...HeaderToken().headers
-                    }
-                }
+    if (imgFile) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            imgPreview.src = e.target.result; // Set the image source to the file data
+            imgPreview.style.display = 'block'; // Show the image preview
+        }
+        reader.readAsDataURL(imgFile); // Read the file as a data URL
+    } else {
+        imgPreview.src = ""; // Clear the preview if no file is selected
+        imgPreview.style.display = 'none'; // Hide the preview
+    }
+});
 
-                // Sending the form data to the server
-                let res = await axios.post("/api/create-supriler", formData, config);
 
-                if (res.data['status'] === "success") {
-                    successToast(res.data['message']);
-                    document.getElementById("signup").reset();  // Reset form
-                    await getList();  // Refresh the list after adding a new supplier
-                } else {
-                    errorToast(res.data['message']);
+    // Function to close the modal
+    function closeModal() {
+        const modal = document.getElementById('myModal');
+        modal.style.display = 'none'; // Hide the modal
+    }
+
+    async function Save(event) {
+    event.preventDefault();
+    try {
+        let SuprilerName = document.getElementById('SuprilerName').value;
+        let SuprilerCompany = document.getElementById('SuprilerCompany').value;
+        let SuprilerMobile = document.getElementById('SuprilerMobile').value;
+        let SuprilerAddress = document.getElementById('SuprilerAddress').value;
+        let SuprilerEmail = document.getElementById('SuprilerEmail').value;
+        let SelectStatus = document.getElementById('SelectStatus').value;
+        let imgInput = document.getElementById('SuprilerImg');
+        let imgFile = imgInput.files[0];
+
+        // Validation
+        if (!SuprilerName) {
+            errorToast("Supplier Name is required!");
+        } else if (!SuprilerCompany) {
+            errorToast("Company Name is required!");
+        } else if (!SuprilerMobile) {
+            errorToast("Mobile Number is required!");
+        } else if (!SuprilerAddress) {
+            errorToast("Address is required!");
+        } else if (!SuprilerEmail) {
+            errorToast("Email is required!");
+        } else if (!SelectStatus) {
+            errorToast("Status is required!");
+        } else if (!imgFile) {
+            errorToast("Photo is required!");
+        } else {
+            // Creating form data for submission
+            let formData = new FormData();
+            formData.append('name', SuprilerName);
+            formData.append('company', SuprilerCompany);
+            formData.append('mobile', SuprilerMobile);
+            formData.append('address', SuprilerAddress);
+            formData.append('email', SuprilerEmail);
+            formData.append('status', SelectStatus);
+            formData.append('img_url', imgFile); // Append image file
+
+            const config = {
+                headers: {
+                    'content-type': 'multipart/form-data',
+                    ...HeaderToken().headers
                 }
             }
-        } catch (e) {
-            unauthorized(e.response.status);  // Handle authorization issues
+
+            // Sending the form data to the server
+            let res = await axios.post("/api/create-supriler", formData, config);
+
+            if (res.data['status'] === "success") {
+                successToast(res.data['message']);
+                document.getElementById("signup").reset();  // Reset form
+                closeModal();
+                await getList();  // Refresh the list after adding a new supplier
+            } else {
+                errorToast(res.data['message']);
+            }
         }
+    } catch (e) {
+        unauthorized(e.response.status);  // Handle authorization issues
     }
+}
+
 </script>

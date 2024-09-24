@@ -70,7 +70,6 @@
             <input type="checkbox" />
             <h1>I accept the <a href="#">Privacy Policy.</a></h1>
           </label>
-
           <button onclick="onRegistration()" type="submit">SIGN UP</button>
         </form>
         <div class="switch">

@@ -12,12 +12,15 @@ class SuprilerController extends Controller
     public function SuprilerCreate(Request $request)
     {
         try {
-            $user_id = Auth::id();
+                    $user_id = Auth::id();
+            $img = $request->file('img_url');
+            $t = time();
+            $file_name = $img->getClientOriginalName();
+            $img_name = "{$user_id}-{$t}-{$file_name}";
+            $img_url = "uploads/supriler-images/{$img_name}";
 
-            // Handling image upload if exists
-            if ($request->hasFile('img_url')) {
-                $img_path = $request->file('img_url')->store('uploads/supriler-images', 'public');
-            }
+            // Upload File
+            $img->move(public_path('uploads/supriler-images'), $img_name);
 
             // Creating the supplier entry
             Supriler::create([
@@ -26,7 +29,7 @@ class SuprilerController extends Controller
                 'mobile' => $request->input('mobile'),
                 'address' => $request->input('address'),
                 'email' => $request->input('email'),
-                'img_url' => $img_path ?? null,  // Store image path if available
+                'img_url' => $img_url,
                 'status' => $request->input('status'),
                 'user_id' => $user_id,
             ]);

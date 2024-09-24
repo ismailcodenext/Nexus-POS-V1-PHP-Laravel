@@ -17,6 +17,9 @@ Route::view('/', 'components.front-end.auth.registration-form');
 Route::view('/nexus-login-page', 'components.front-end.auth.registration-form');
 
 
+
+Route::get('/naxus-pos-logout', [UserController::class, 'UserLogout'])->middleware('auth:sanctum');
+
 // Front-end View Route Api End
 
 

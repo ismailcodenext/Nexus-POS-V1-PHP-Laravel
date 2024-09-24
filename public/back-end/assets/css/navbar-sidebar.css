@@ -557,7 +557,7 @@ body[data-sidebar-size="md"] .navbar-brand-box {
 }
 
 .vertical-menu {
-    width: 260px;
+    width: 280px;
     height: 100vh !important;
     z-index: 1005;
     background: var(--white);
@@ -596,7 +596,7 @@ body[data-sidebar-size="md"] .navbar-brand-box {
     display: block;
     font-size: 1.4rem;
     position: absolute;
-    right: 18px;
+    right: 1px;
     top: 8px;
     transform: rotate(90deg);
 }

@@ -109,7 +109,7 @@
                   class="create-invoice"
                   type="button"
                 >
-                  + Create Brand
+                  + Create Category
                 </button>
                 <div class="icon-buttons">
                   <button id="copyBtn">

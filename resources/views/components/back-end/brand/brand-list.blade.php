@@ -4,9 +4,7 @@
       <!-- Table Start -->
       <div class="bredcam">
         <div class="bredcam-title">
-          <h1>Finances</h1>
-          <span>|</span>
-          <a class="bredcam-invoice" href="#">Invoices</a>
+          <h1>Brand List</h1>
         </div>
       </div>
       <div class="data-table">
