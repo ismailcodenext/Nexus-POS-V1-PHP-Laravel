@@ -12,7 +12,9 @@ use App\Http\Controllers\SuprilerController;
 // Brand Api Route Start
 Route::get("/brand-list", [BrandController::class, 'BrandList'])->middleware('auth:sanctum');
 Route::post("/create-brand", [BrandController::class, 'BrandCreate'])->middleware('auth:sanctum');
-
+Route::post("/brand-by-id", [BrandController::class, 'BrandById'])->middleware('auth:sanctum');
+Route::post("/update-brand", [BrandController::class, 'BrandUpdate'])->middleware('auth:sanctum');
+Route::post("/delete-brand", [BrandController::class, 'BrandDelete'])->middleware('auth:sanctum');
 // Brand Api Route End
 
 // Category Api Route Start

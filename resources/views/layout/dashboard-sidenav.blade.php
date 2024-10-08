@@ -1107,12 +1107,10 @@
 
 
         <!-- JAVASCRIPT -->
-
+        <script src="{{asset('back-end/assets/js/bootstrap.bundle.min.js')}}"></script>
         <script src="{{asset('back-end/assets/js/finance-popup-modal.js')}}"></script>
         <script src="{{asset('back-end/assets/js/table.js')}}"></script>
-
         <script src="{{asset('back-end/assets/js/fontawesome.js')}}"></script>
-        <script src="{{asset('back-end/assets/js/bootstrap.bundle.min.js')}}"></script>
         <script src="{{asset('back-end/assets/js/simplebar.min.js')}}"></script>
         <script src="{{asset('back-end/assets/js/feather.min.js')}}"></script>
         <script src="{{asset('back-end/assets/js/full-screen-toggle.js')}}"></script>

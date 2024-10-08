@@ -419,7 +419,7 @@
             </div>
           </section>
           <div class="copyright">
-            <p>&copy; 2023. All Rights Reserved.</p>
+            <p>&copy; 2024. All Rights Reserved.</p>
           </div>
 
           <!-- Dashboard Charts End -->
