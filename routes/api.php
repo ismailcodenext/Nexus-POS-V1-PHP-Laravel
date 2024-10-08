@@ -21,6 +21,9 @@ Route::post("/delete-brand", [BrandController::class, 'BrandDelete'])->middlewar
 
 Route::get("/category-list", [CategoryController::class, 'CategoryList'])->middleware('auth:sanctum');
 Route::post("/create-category", [CategoryController::class, 'CategoryCreate'])->middleware('auth:sanctum');
+Route::post("/category-by-id", [CategoryController::class, 'CategoryByID'])->middleware('auth:sanctum');
+Route::post("/update-category", [CategoryController::class, 'CategoryUpdate'])->middleware('auth:sanctum');
+Route::post("delete-category", [CategoryController::class, 'CategoryDelete'])->middleware('auth:sanctum');
 
 // Category Api Route End
 
@@ -29,6 +32,9 @@ Route::post("/create-category", [CategoryController::class, 'CategoryCreate'])->
 
 Route::get("/unit-list", [UnitController::class, 'UnitList'])->middleware('auth:sanctum');
 Route::post("/create-unit", [UnitController::class, 'UnitCreate'])->middleware('auth:sanctum');
+Route::post("/unit-by-id", [UnitController::class, 'UnitByID'])->middleware('auth:sanctum');
+Route::post("/update-unit", [UnitController::class, 'UnitUpdate'])->middleware('auth:sanctum');
+Route::post("delete-unit", [UnitController::class, 'UnitDelete'])->middleware('auth:sanctum');
 
 // Unit Api Route End
 

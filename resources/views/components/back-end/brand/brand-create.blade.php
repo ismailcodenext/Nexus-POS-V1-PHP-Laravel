@@ -55,60 +55,112 @@
 <!-- Finance- Pop Up Modal End -->
 
 <script>
-    function previewImage(event) {
-        const imagePreview = document.getElementById('imagePreview');
-        imagePreview.src = URL.createObjectURL(event.target.files[0]);
-    }
+//    async function Save(event) {
+//     event.preventDefault(); // Prevent the form from submitting and refreshing the page
+//     try {
+//         let BrandName = document.getElementById('BrandName').value;
+//         let SelectStatus = document.getElementById('SelectStatus').value;
+//         let imgInput = document.getElementById('BrandImg');
+//         let imgFile = imgInput.files[0];
 
-    function closeModal() {
-        const modal = document.getElementById('myModal');
-        modal.style.display = 'none'; // Hide the modal
-    }
+//         if (BrandName.length === 0) {
+//             errorToast("Brand Name Required !");
+//             return; // Exit the function if validation fails
+//         } else if (SelectStatus.length === 0) {
+//             errorToast("Status Required !");
+//             return;
+//         } else if (!imgInput.files || imgInput.files.length === 0) {
+//             errorToast("Photo Required !");
+//             return;
+//         } else {
+//             let formData = new FormData();
+//             formData.append('brand_name', BrandName);
+//             formData.append('status', SelectStatus);
+//             formData.append('img', imgFile);
 
-    async function Save(event) {
-        event.preventDefault(); // Prevent the form from submitting and refreshing the page
-        try {
-            let BrandName = document.getElementById('BrandName').value;
-            let SelectStatus = document.getElementById('SelectStatus').value;
-            let imgInput = document.getElementById('BrandImg');
-            let imgFile = imgInput.files[0];
+//             const config = {
+//                 headers: {
+//                     'content-type': 'multipart/form-data',
+//                     ...HeaderToken().headers
+//                 }
+//             }
 
-            if (BrandName.length === 0) {
-                errorToast("Brand Name Required !");
-                return; // Exit the function if validation fails
-            } else if (SelectStatus.length === 0) {
-                errorToast("Status Required !");
-                return;
-            } else if (!imgInput.files || imgInput.files.length === 0) {
-                errorToast("Photo Required !");
-                return;
-            } else {
-                let formData = new FormData();
-                formData.append('brand_name', BrandName);
-                formData.append('status', SelectStatus);
-                formData.append('img', imgFile);
+//             let res = await axios.post("/api/create-brand", formData, config);
 
-                const config = {
-                    headers: {
-                        'content-type': 'multipart/form-data',
-                        ...HeaderToken().headers
-                    }
-                }
+//             if (res.data['status'] === "success") {
+//                 successToast(res.data['message']);
+//                 document.getElementById("signup").reset();
+//                 document.getElementById('imagePreview').src = "{{ asset('images/default.jpg') }}"; // Reset the image preview
 
-                let res = await axios.post("/api/create-brand", formData, config);
+//                 // Use the global closeModal function to close the modal properly
+//                 const modal = document.getElementById('myModal');
+//                 closeModal(modal);  // Close the modal smoothly
 
-                if (res.data['status'] === "success") {
-                    successToast(res.data['message']);
-                    document.getElementById("signup").reset();
-                    document.getElementById('imagePreview').src = "{{ asset('images/default.jpg') }}"; // Reset the image preview
-                    closeModal(); // Close the modal on success
-                    await getList();
-                } else {
-                    errorToast(res.data['message']);
-                }
-            }
-        } catch (e) {
-            unauthorized(e.response.status);
+//                 await getList();  // Refresh your brand list or any other actions needed
+//             } else {
+//                 errorToast(res.data['message']);
+//             }
+//         }
+//     } catch (e) {
+//         unauthorized(e.response.status);
+//     }
+// }
+
+
+
+// Brand Create Script
+async function Save(event) {
+    event.preventDefault(); // Prevent the form from submitting and refreshing the page
+    try {
+        let BrandName = document.getElementById('BrandName').value;
+        let SelectStatus = document.getElementById('SelectStatus').value;
+        let imgInput = document.getElementById('BrandImg');
+        let imgFile = imgInput.files[0];
+
+        // Validation
+        if (BrandName.length === 0) {
+            errorToast("Brand Name Required !");
+            return; // Exit the function if validation fails
+        } else if (SelectStatus.length === 0) {
+            errorToast("Status Required !");
+            return;
+        } else if (!imgInput.files || imgInput.files.length === 0) {
+            errorToast("Photo Required !");
+            return;
         }
+
+        // Prepare form data
+        let formData = new FormData();
+        formData.append('brand_name', BrandName);
+        formData.append('status', SelectStatus);
+        formData.append('img', imgFile);
+
+        const config = {
+            headers: {
+                'content-type': 'multipart/form-data',
+                ...HeaderToken().headers
+            }
+        };
+
+        // Make the request
+        let res = await axios.post("/api/create-brand", formData, config);
+
+        if (res.data['status'] === "success") {
+            successToast(res.data['message']);
+            document.getElementById("signup").reset();
+            document.getElementById('imagePreview').src = "{{ asset('images/default.jpg') }}"; // Reset the image preview
+
+            // Use the global closeModal function to close the modal properly
+            const modal = document.getElementById('myModal');
+            closeModal(modal);  // Close the modal smoothly
+
+            await getList();  // Refresh your brand list or any other actions needed
+        } else {
+            errorToast(res.data['message']);
+        }
+    } catch (e) {
+        unauthorized(e.response.status);
     }
+}
+
 </script>

@@ -83,52 +83,56 @@
         }
     }
 
-    // Update brand function
-    async function Update() {
-        try {
-            // Get values from the form inputs
-            let UpdateBrandName = document.getElementById('UpdateBrandName').value;
-            let updateID = document.getElementById('updateID').value;
-            let UpdateBrandImg = document.getElementById('UpdateBrandImg').files[0];
-            let UpdateBrandStatus = document.getElementById('UpdateBrandStatus').value;
+   // Update Brand Script
+async function Update() {
+    try {
+        let UpdateBrandName = document.getElementById('UpdateBrandName').value;
+        let updateID = document.getElementById('updateID').value;
+        let UpdateBrandImg = document.getElementById('UpdateBrandImg').files[0];
+        let UpdateBrandStatus = document.getElementById('UpdateBrandStatus').value;
 
-            // Validate required fields
-            if (!UpdateBrandName || !UpdateBrandStatus) {
-                return errorToast('Please fill out all required fields.');
-            }
-
-            // Prepare form data
-            let formData = new FormData();
-            formData.append('name', UpdateBrandName);
-            formData.append('status', UpdateBrandStatus);
-            if (UpdateBrandImg) { // Only append if image is selected
-                formData.append('img', UpdateBrandImg);
-            }
-            formData.append('id', updateID);
-
-            // Set the request configuration with headers
-            const config = {
-                headers: {
-                    'content-type': 'multipart/form-data',
-                    ...HeaderToken().headers // Add authorization headers
-                }
-            };
-
-            showLoader(); // Show loader when submitting
-
-            // Make the request to update the brand
-            let res = await axios.post("/api/update-brand", formData, config);
-            hideLoader(); // Hide loader after request completion
-
-            if (res.data.status === "success") {
-                successToast(res.data.message); // Show success toast
-                await getList(); // Refresh the brand list
-            } else {
-                errorToast(res.data.message); // Show error toast if update failed
-            }
-
-        } catch (e) {
-            unauthorized(e.response.status); // Handle unauthorized or other errors
+        // Validate required fields
+        if (!UpdateBrandName || !UpdateBrandStatus) {
+            return errorToast('Please fill out all required fields.');
         }
+
+        // Prepare form data
+        let formData = new FormData();
+        formData.append('name', UpdateBrandName);
+        formData.append('status', UpdateBrandStatus);
+        if (UpdateBrandImg) {
+            formData.append('img', UpdateBrandImg);
+        }
+        formData.append('id', updateID);
+
+        // Set the request configuration with headers
+        const config = {
+            headers: {
+                'content-type': 'multipart/form-data',
+                ...HeaderToken().headers // Add authorization headers
+            }
+        };
+
+        showLoader(); // Show loader when submitting
+
+        // Make the request to update the brand
+        let res = await axios.post("/api/update-brand", formData, config);
+        hideLoader(); // Hide loader after request completion
+
+        if (res.data.status === "success") {
+            successToast(res.data.message);
+            const updatemodal1 = document.getElementById('custom-modal-1');
+            closeModal(updatemodal1);
+            await getList(); // Refresh the brand list
+        } else {
+            errorToast(res.data.message);
+        }
+
+    } catch (e) {
+        unauthorized(e.response.status);
     }
+}
+
+
+
 </script>

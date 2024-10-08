@@ -27,7 +27,7 @@ async function itemDelete() {
         showLoader(); // Show loader while the request is being processed
 
         // Make the request to delete the brand
-        let res = await axios.post("/api/delete-brand", { id: id }, HeaderToken());
+        let res = await axios.post("/api/delete-category", { id: id }, HeaderToken());
 
         hideLoader(); // Hide loader after request completion
 
