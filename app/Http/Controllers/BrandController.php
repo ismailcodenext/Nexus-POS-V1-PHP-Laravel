@@ -94,7 +94,7 @@ function BrandUpdate(Request $request)
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'status' => 'required|in:Active,InActive',
-            'img' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:1024', // Max 1MB
+            'img' => 'nullable|image|mimes:jpeg,png,jpg,gif',
         ]);
 
         // Update brand name and status

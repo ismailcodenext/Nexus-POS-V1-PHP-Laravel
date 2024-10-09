@@ -984,6 +984,12 @@
                   ><span data-key="t-calendar">Supriler List</span>
                 </a>
               </li>
+              <li>
+                <a href="{{url('admin-dashboard-product')}}">
+                  <i class="fa-solid fa-circle"></i
+                  ><span data-key="t-calendar">Product List</span>
+                </a>
+              </li>
             </ul>
           </li>
 

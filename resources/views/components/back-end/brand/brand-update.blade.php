@@ -60,11 +60,11 @@
         try {
             // Set the brand id in the hidden input
             document.getElementById('updateID').value = id;
-            showLoader();
+           // showLoader();
 
             // Fetch the brand data by ID
             let res = await axios.post("/api/brand-by-id", { id: id.toString() }, HeaderToken());
-            hideLoader();
+           // hideLoader();
 
             // Populate the form with the fetched data
             let data = res.data.rows;

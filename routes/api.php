@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UnitController;
 use App\Http\Controllers\BrandController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SuprilerController;
 
@@ -45,6 +46,23 @@ Route::post("delete-unit", [UnitController::class, 'UnitDelete'])->middleware('a
 
 Route::get("/supriler-list", [SuprilerController::class, 'SuprilerList'])->middleware('auth:sanctum');
 Route::post("/create-supriler", [SuprilerController::class, 'SuprilerCreate'])->middleware('auth:sanctum');
+Route::post("/supriler-by-id", [SuprilerController::class, 'SuprilerByID'])->middleware('auth:sanctum');
+Route::post("/update-supriler", [SuprilerController::class, 'SuprilerUpdate'])->middleware('auth:sanctum');
+Route::post("/delete-supriler", [SuprilerController::class, 'SuprilerDelete'])->middleware('auth:sanctum');
+
+// Supriler Api Route End
+
+
+
+
+
+//Product  Api Route Start
+
+Route::get("/product-list", [ProductController::class, 'ProductList'])->middleware('auth:sanctum');
+Route::post("/create-product", [ProductController::class, 'ProductCreate'])->middleware('auth:sanctum');
+Route::post("/product-by-id", [ProductController::class, 'ProductByID'])->middleware('auth:sanctum');
+Route::post("/update-product", [ProductController::class, 'ProductUpdate'])->middleware('auth:sanctum');
+Route::post("/delete-product", [ProductController::class, 'ProductDelete'])->middleware('auth:sanctum');
 
 // Supriler Api Route End
 

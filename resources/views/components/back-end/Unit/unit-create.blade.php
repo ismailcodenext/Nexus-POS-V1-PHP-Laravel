@@ -70,7 +70,9 @@
                 if (res.data['status'] === "success") {
                     successToast(res.data['message']);
                     document.getElementById("signup").reset();
-                    closeModal(); // Close the modal on success
+                    const modal = document.getElementById('myModal');
+            closeModal(modal);  // Close the modal smoothly
+
                     await getList();  // Refresh the list after creation
                 } else {
                     errorToast(res.data['message']);

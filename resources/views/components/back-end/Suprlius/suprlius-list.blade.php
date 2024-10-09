@@ -347,48 +347,40 @@
                         <td>${item['company']}</td>
                         <td>${item['status']}</td>
                         <td>
-                            <div id="action_btn">
-                                <div id="menu-wrap">
-                                    <input type="checkbox" class="toggler" />
-                                    <div class="dots"><div></div></div>
-                                    <div class="menu">
-                                        <div>
-                                            <ul>
-                                                <li><a href="#" class="link custom-open-modal-btn" data-id="${item['id']}">Edit</a></li>
-                                                <li><a href="#" class="link deleteBtn" data-id="${item['id']}">Delete</a></li>
-                                            </ul>
-                                        </div>
+                        <div id="action_btn">
+                            <div id="menu-wrap">
+                                <input type="checkbox" class="toggler" />
+                                <div class="dots"><div></div></div>
+                                <div class="menu">
+                                    <div>
+                                        <ul>
+                                            <li><a href="#" class="custom-open-modal-btn" data-id="${item['id']}" data-modal="custom-modal-1">Edit</a></li>
+                                            <li><a href="#" class="custom-delete-modal-btn" data-id="${item['id']}" data-modal="custom-modal-2">Delete</a></li>
+                                        </ul>
                                     </div>
                                 </div>
                             </div>
-                        </td>
-                    </tr>`;
-                tableList.append(row);
-            });
+                        </div>
+                    </td>
+                </tr>`;
+            tableList.append(row);
+        });
 
-            // Attach click event for edit buttons
-            $('.custom-open-modal-btn').on('click', async function () {
-                let id = $(this).data('id');
-                // await FillUpUpdateForm(id);
-                $("#custom-modal-1").modal('show');  // Open modal
-            });
+        // Event bindings for edit and delete
+        $('.custom-open-modal-btn').on('click', async function() {
+            let id = $(this).data('id');
+            await FillUpUpdateForm(id);
+            $("#custom-modal-1").modal('show');
+        });
 
-            // Attach click event for delete buttons
-            $('.deleteBtn').on('click', function () {
-                let id = $(this).data('id');
-                $("#delete-modal").modal('show');  // Open delete modal
-                $("#deleteID").val(id);  // Set the ID for deletion
-            });
-
-            // Initialize or reinitialize DataTable after populating data
-            $('#tableData').DataTable({
-                destroy: true,  // Destroy any existing table before initializing a new one
-                order: [[0, 'desc']],  // Order by the first column (ID) in descending order
-                lengthMenu: [5, 10, 15, 20, 30]  // Pagination options
-            });
-
-        } catch (e) {
-            unauthorized(e.response.status);  // Handle unauthorized or other errors
-        }
+        $('.custom-delete-modal-btn').on('click', function() {
+            let id = $(this).data('id');
+            $("#custom-modal-2").modal('show');
+            $("#deleteID").val(id);
+        });
+    } catch (e) {
+        unauthorized(e.response.status);
     }
+}
+
 </script>
