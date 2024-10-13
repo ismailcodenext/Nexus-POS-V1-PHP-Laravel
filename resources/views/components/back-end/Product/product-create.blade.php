@@ -40,34 +40,34 @@
 
                     <div class="col-md-6 mb-4">
                         <label class="form-label">Name<span class="text-danger">*</span></label>
-                        <input type="text" name="name" id="ProductName" /><br />
+                        <input type="text" class="input-style" name="name" id="ProductName" /><br />
                     </div>
 
 
                     <div class="col-md-6 mb-4">
                         <label class="form-label">Price <span class="text-danger">*</span></label>
-                        <input type="text" name="price" id="ProductPrice" /><br />
+                        <input type="text" name="price" class="input-style" id="ProductPrice" /><br />
                     </div>
 
 
 
                     <div class="col-md-6 mb-4">
                         <label class="form-label">Sell Price <span class="text-danger">*</span></label>
-                        <input type="text" name="sell_price" id="ProductSell" /><br />
+                        <input type="text" name="sell_price" class="input-style" id="ProductSell" /><br />
                     </div>
 
 
 
                     <div class="col-md-6 mb-4">
                         <label class="form-label">Date <span class="text-danger">*</span></label>
-                        <input type="date" name="date" id="ProductDate" /><br />
+                        <input type="date" name="date" class="input-style" id="ProductDate" /><br />
                     </div>
 
 
 
                     <div class="col-md-6 mb-4">
                         <label class="form-label">Code <span class="text-danger">*</span></label>
-                        <input type="text" name="date" id="ProductCode" /><br />
+                        <input type="text" name="date" class="input-style" id="ProductCode" /><br />
                     </div>
 
 
@@ -205,8 +205,8 @@ ProductSuprilerShow();
                 formData.append('price', ProductPrice);
                 formData.append('sell_price', ProductSell);
                 formData.append('date', ProductDate);
-                formData.append('status', ProductCode);
-                formData.append('code', SelectStatus);
+                formData.append('status', SelectStatus);
+                formData.append('code', ProductCode);
 
                 const config = {
                     headers: {

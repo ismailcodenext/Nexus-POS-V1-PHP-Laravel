@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Exception;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
@@ -62,6 +63,42 @@ class ProductController extends Controller
             return response()->json(['status' => 'success', 'rows' => $rows]);
         } catch (Exception $e) {
             return response()->json(['status' => 'fail', 'message' => $e->getMessage()]);
+        }
+    }
+
+
+    public function ProductUpdate(Request $request)
+    {
+        try {
+            $user_id = Auth::id();
+
+            // Find the supplier record to update
+            $ProductData_Update = Product::find($request->input('id'));
+
+            // Update the supplier's fields
+            $ProductData_Update->name = $request->input('name');
+            $ProductData_Update->price = $request->input('price');
+            $ProductData_Update->sell_price = $request->input('sell_price');
+            $ProductData_Update->date = $request->input('date');
+            $ProductData_Update->status = $request->input('status');
+            $ProductData_Update->code = $request->input('code');
+            $ProductData_Update->brand_id = $request->input('brand_id');
+            $ProductData_Update->category_id = $request->input('category_id');
+            $ProductData_Update->unit_id = $request->input('unit_id');
+            $ProductData_Update->suppliers_id = $request->input('suppliers_id');
+
+
+            // Save the updated Product data
+            $ProductData_Update->save();
+
+            // Return success response
+            return response()->json(['status' => 'success', 'message' => 'Product updated successfully']);
+        } catch (Exception $e) {
+            // Log the error for debugging purposes
+            Log::error('Product Update Error: ' . $e->getMessage());
+
+            // Return failure response
+            return response()->json(['status' => 'fail', 'message' => 'An error occurred while updating the Product.']);
         }
     }
 

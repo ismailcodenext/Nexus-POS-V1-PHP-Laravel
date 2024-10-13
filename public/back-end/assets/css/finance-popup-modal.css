@@ -625,6 +625,7 @@
 
   .custom-modal.show {
     opacity: 1; /* Fully visible */
+    overflow: auto;
   }
 
   .custom-modal.hide {
@@ -632,7 +633,7 @@
   }
 
   .custom-modal-content {
-    margin: 15% auto; /* Center the modal content */
+    margin: 10% auto; /* Center the modal content */
     padding: 20px;
     background-color: white;
     border-radius: 5px;
@@ -665,6 +666,17 @@
 
   #custom-modal-1 input[type=text],
   #custom-modal-2 input[type=text]{
+    width:100%;
+    border:2px solid #aaa;
+    border-radius:4px;
+    margin:8px 0;
+    outline:none;
+    padding:8px;
+    box-sizing:border-box;
+    transition:.3s;
+  }
+
+ .input-style{
     width:100%;
     border:2px solid #aaa;
     border-radius:4px;

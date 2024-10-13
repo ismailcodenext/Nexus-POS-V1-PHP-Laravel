@@ -14,4 +14,10 @@ class Unit extends Model
         'status',
         'user_id',
     ];
+
+    public function products()
+    {
+        return $this->hasMany(Product::class, 'unit_id');
+    }
+
 }

@@ -22,4 +22,27 @@ class Product extends Model
         'suppliers_id',
         'user_id'
     ];
+
+    public function brand()
+    {
+        return $this->belongsTo(Brand::class, 'brand_id');
+    }
+
+    // Relationship with Category
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'category_id');
+    }
+
+    // Relationship with Unit
+    public function unit()
+    {
+        return $this->belongsTo(Unit::class, 'unit_id');
+    }
+
+    // Relationship with Supplier
+    public function supplier()
+    {
+        return $this->belongsTo(Supriler::class, 'suppliers_id');
+    }
 }
