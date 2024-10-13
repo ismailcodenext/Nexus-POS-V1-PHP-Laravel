@@ -16,7 +16,6 @@
                                 <input type="file" class="custom-file-input" aria-label="Upload Photo"
                                     id="UpdateSuprilerImg" accept="image/*" onchange="previewImage(event)" />
                             </label>
-                            <p>PNG, JPEG, or GIF (up to 1 MB)</p>
                         </div>
                     </div>
                 </div>
@@ -28,10 +27,12 @@
                 <input type="text" name="name" placeholder="Enter Name" id="UpdateSuprilerName" /><br />
             </div>
             <div class="col-lg-6">
-                <input type="text" name="company" placeholder="Enter Company Name" id="UpdateSuprilerCompany" /><br />
+                <input type="text" name="company" placeholder="Enter Company Name"
+                    id="UpdateSuprilerCompany" /><br />
             </div>
             <div class="col-lg-6">
-                <input type="text" name="mobile" placeholder="Enter Mobile Number" id="UpdateSuprilerMobile" /><br />
+                <input type="text" name="mobile" placeholder="Enter Mobile Number"
+                    id="UpdateSuprilerMobile" /><br />
             </div>
             <div class="col-lg-6">
                 <input type="text" name="address" placeholder="Enter Address" id="UpdateSuprilerAddress" /><br />
@@ -69,9 +70,12 @@
     async function FillUpUpdateForm(id) {
         try {
             document.getElementById('updateID').value = id;
+            showLoader();
 
-            let res = await axios.post("/api/supriler-by-id", { id: id.toString() }, HeaderToken());
-
+            let res = await axios.post("/api/supriler-by-id", {
+                id: id.toString()
+            }, HeaderToken());
+            hideLoader();
             let data = res.data.rows;
             document.getElementById('UpdateSuprilerName').value = data.name;
             document.getElementById('UpdateSuprilerCompany').value = data.company;
@@ -110,17 +114,18 @@
 
             // Prepare form data
             const formData = new FormData();
-            formData.append('id', updateID);
             formData.append('name', UpdateSuprilerName);
             formData.append('company', UpdateSuprilerCompany);
             formData.append('mobile', UpdateSuprilerMobile);
             formData.append('address', UpdateSuprilerAddress);
             formData.append('email', UpdateSuprilerEmail);
             formData.append('status', UpdateSuprilerStatus);
+            formData.append('id', updateID);
 
             if (UpdateSuprilerImg) {
                 formData.append('img', UpdateSuprilerImg);
             }
+
 
             // Set the request configuration with headers
             const config = {
@@ -132,30 +137,25 @@
 
             showLoader(); // Show loader when submitting
 
-            // Make the request to update the supplier
+            // Make the request to update the category
             let res = await axios.post("/api/update-supriler", formData, config);
             hideLoader(); // Hide loader after request completion
 
             if (res.data.status === "success") {
                 successToast(res.data.message);
-                const updateModal = document.getElementById('custom-modal-1');
-                closeModal(updateModal);
-                await getList(); // Refresh the supplier list
+                const updatemodal1 = document.getElementById('custom-modal-1');
+                closeModal(updatemodal1);
+                await getList(); // Refresh the category list
             } else {
                 errorToast(res.data.message);
             }
 
         } catch (e) {
-            unauthorized(e.response.status);
+            unauthorized(e.response.status); // Handle unauthorized or other errors
         }
     }
-
-    // Function to close the modal
-    function closeModal(modal) {
-        modal.style.display = "none";
-    }
-
 </script>
+
 
 
 

@@ -117,8 +117,6 @@ function SuprilerByID(Request $request){
 
 public function SuprilerUpdate(Request $request)
 {
-dd($request->all());
-
     try {
         $user_id = Auth::id();
 

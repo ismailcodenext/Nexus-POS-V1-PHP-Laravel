@@ -103,11 +103,6 @@ document.getElementById('SuprilerImg').addEventListener('change', function (even
 });
 
 
-    // Function to close the modal
-    function closeModal() {
-        const modal = document.getElementById('myModal');
-        modal.style.display = 'none'; // Hide the modal
-    }
 
     async function Save(event) {
     event.preventDefault();
@@ -160,7 +155,8 @@ document.getElementById('SuprilerImg').addEventListener('change', function (even
             if (res.data['status'] === "success") {
                 successToast(res.data['message']);
                 document.getElementById("signup").reset();  // Reset form
-                closeModal();
+                const modal = document.getElementById('myModal');
+            closeModal(modal);  // Close the modal smoothly
                 await getList();  // Refresh the list after adding a new supplier
             } else {
                 errorToast(res.data['message']);
