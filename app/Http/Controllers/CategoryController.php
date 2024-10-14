@@ -35,6 +35,19 @@ class CategoryController extends Controller
 
 
    // List all Categories
+public function AJXCategoryList()
+{
+    try {
+        // Fetch all categories
+        $CategoryData = Category::all();
+        return response()->json(['status' => 'success', 'CategoryData' => $CategoryData]);
+    } catch (Exception $e) {
+        return response()->json(['status' => 'fail', 'message' => $e->getMessage()]);
+    }
+}
+
+
+   // List all Categories
 public function CategoryList()
 {
     try {

@@ -28,10 +28,9 @@
                     <div class="col-md-6 mb-4">
                         <label class="form-label">Category <span class="text-danger">*</span></label>
                         <div class="input-group">
-                            <select class="form-select input-style" id="ProductCategory"
-                            aria-label="Default select example">
-                            <option value="none">Select Category</option>
-                        </select>
+                            <select class="form-select input-style" id="ProductCategory" aria-label="Default select example">
+                                <option value="none" selected>Select Category</option>
+                            </select>
                             <button class="btn btn-outline-secondary" type="button" data-bs-toggle="modal" data-bs-target="#addCategoryModal">
                                 <i class="fas fa-plus"></i>
                             </button>
@@ -412,8 +411,9 @@
                 if (res.data['status'] === "success") {
                     successToast(res.data['message']);
                     document.getElementById("signup").reset();  // Reset form
-                    const modal = document.getElementById('myModal');
-                closeModal(modal);  // Close the modal smoothly
+                    const modal = document.getElementById('addBrandModal');
+                    const modalInstance = bootstrap.Modal.getInstance(modal);
+                    modalInstance.hide(); // Close the modal smoothly // Close the modal smoothly
                     await getList();  // Refresh the list after adding a new supplier
                 } else {
                     errorToast(res.data['message']);
@@ -429,7 +429,9 @@
 
 
 <script>
-    async function CategorySave(event) {
+
+
+async function CategorySave(event) {
         event.preventDefault();  // Stop the form from submitting and reloading the page
         
         try {
@@ -458,18 +460,21 @@
                 }
             };
 
-            // Send the POST request
+            // Send the POST request to create a new category
             let res = await axios.post("/api/create-category", formData, config);
 
             if (res.data['status'] === "success") {
                 successToast(res.data['message']);
                 document.getElementById("signup").reset();
 
-                const modal = document.getElementById('addCategoryModal'); // Update to correct modal ID
+               // Close the modal after saving
+               const modal = document.getElementById('addCategoryModal');
                 const modalInstance = bootstrap.Modal.getInstance(modal);
-                modalInstance.hide(); // Close the modal smoothly
+                modalInstance.hide();
 
-                await getList();  // Refresh the category list after creation
+                // Refresh the category list dynamically without reloading
+                await ProductCategoryShow();  
+
             } else {
                 errorToast(res.data['message']);
             }
@@ -478,6 +483,7 @@
         }
         return false;
     }
+
 </script>
 
 <script>
@@ -647,21 +653,98 @@
 
 
     async function ProductCategoryShow() {
-        try {
-            let res = await axios.get("/api/category-list", HeaderToken());
-            let Category = res.data.CategoryData;
-            let optionsHtmlCategory = Category.map(Category =>
-                `<option value="${Category.id}">${Category.category_name}</option>`).join('');
+    try {
+        // Make an AJAX call to the API to fetch the category list
+        let res = await axios.get("/api/category-list", HeaderToken());
 
-            // Add the "Select Category" option as the first option
-            optionsHtmlCategory = `<option value="none" selected>Select Category</option>` + optionsHtmlCategory;
-
-            $("#ProductCategory").html(optionsHtmlCategory);
-
-        } catch (error) {
-            console.error("Error occurred while fetching sessions:", error);
+        // Check if the response is successful
+        if (res.data.status !== 'success') {
+            console.error("Failed to fetch categories:", res.data.message);
+            return;
         }
+
+        let Category = res.data.CategoryData;
+
+        // Build the options for the dropdown
+        let optionsHtmlCategory = Category.map(category =>
+            `<option value="${category.id}">${category.category_name}</option>`
+        ).join('');
+
+        // Add the default "Select Category" option at the top
+        optionsHtmlCategory = `<option value="none" selected>Select Category</option>` + optionsHtmlCategory;
+
+        // Populate the dropdown with the fetched categories
+        document.getElementById("ProductCategory").innerHTML = optionsHtmlCategory;
+
+    } catch (error) {
+        console.error("Error fetching categories:", error);
     }
+}
+
+// Event listener: When the modal is shown, call ProductCategoryShow to fetch categories
+$(document).on('show.bs.modal', '#addCategoryModal', function () {
+    ProductCategoryShow(); // Fetch categories when the modal is shown
+});
+
+// Fetch and populate categories on page load
+document.addEventListener('DOMContentLoaded', function () {
+    ProductCategoryShow(); // This will fetch categories when the page loads
+});
+
+// Optional: Function to refresh categories dynamically without reloading the page
+function refreshCategoryList() {
+    ProductCategoryShow(); // Call the function to refresh the dropdown
+}
+
+// Add an event listener to a button to refresh the category list if needed
+$(document).on('click', '#refreshCategoryButton', function () {
+    refreshCategoryList(); // Call this function when you need to refresh
+});
+
+
+
+
+
+
+
+
+
+
+// Function to fetch and populate the category dropdown
+ // Function to fetch and populate the category dropdown dynamically
+//  async function ProductCategoryShow() {
+//         try {
+//             // Make an AJAX call to the API to fetch the category list
+//             let res = await axios.get("/api/category-list", HeaderToken());  // Assuming your API is working
+//             let Category = res.data.CategoryData;
+
+//             // Build the options for the dropdown
+//             let optionsHtmlCategory = Category.map(category =>
+//                 `<option value="${category.id}">${category.category_name}</option>`
+//             ).join('');
+
+//             // Add the default "Select Category" option at the top
+//             optionsHtmlCategory = `<option value="none" selected>Select Category</option>` + optionsHtmlCategory;
+
+//             // Populate the dropdown with the fetched categories
+//             document.getElementById("ProductCategory").innerHTML = optionsHtmlCategory;
+
+//         } catch (error) {
+//             console.error("Error fetching categories:", error);
+//         }
+//     }
+
+//     // Event listener: When the modal is shown, call ProductCategoryShow to fetch categories
+//     $(document).on('show.bs.modal', '#addCategoryModal', function () {
+//         ProductCategoryShow();
+//     });
+
+//     // Or you can call this function on any other event as per your need
+//     // For example, when the page loads or another event occurs
+//     document.addEventListener('DOMContentLoaded', function () {
+//         ProductCategoryShow();  // Fetch and populate categories on page load
+//     });
+
 
 
 

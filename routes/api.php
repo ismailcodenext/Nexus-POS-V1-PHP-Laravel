@@ -20,6 +20,7 @@ Route::post("/delete-brand", [BrandController::class, 'BrandDelete'])->middlewar
 
 // Category Api Route Start
 
+// Route::get("/ajx-category-list", [CategoryController::class, 'AJXCategoryList'])->middleware('auth:sanctum');
 Route::get("/category-list", [CategoryController::class, 'CategoryList'])->middleware('auth:sanctum');
 Route::post("/create-category", [CategoryController::class, 'CategoryCreate'])->middleware('auth:sanctum');
 Route::post("/category-by-id", [CategoryController::class, 'CategoryByID'])->middleware('auth:sanctum');
