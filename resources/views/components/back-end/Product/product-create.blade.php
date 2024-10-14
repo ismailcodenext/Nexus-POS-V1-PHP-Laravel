@@ -12,68 +12,78 @@
                 <div class="row">
                     <div class="col-md-6 mb-4">
                         <label class="form-label">Brand<span class="text-danger">*</span></label>
-                        <select class="form-select" id="ProductBrand" aria-label="Default select example">
+                        <select class="form-select" class="input-style" id="ProductBrand" aria-label="Default select example">
                             <option value="none">Select Brand</option>
                         </select>
                     </div>
 
                     <div class="col-md-6 mb-4">
                         <label class="form-label">Category<span class="text-danger">*</span></label>
-                        <select class="form-select" id="ProductCategory" aria-label="Default select example">
+                        <select class="form-select" class="input-style" id="ProductCategory" aria-label="Default select example">
                             <option value="none">Select Category</option>
                         </select>
                     </div>
 
                     <div class="col-md-6 mb-4">
                         <label class="form-label">Unit<span class="text-danger">*</span></label>
-                        <select class="form-select" id="ProductUnit" aria-label="Default select example">
+                        <select class="form-select" class="input-style" id="ProductUnit" aria-label="Default select example">
                             <option value="none">Select Unit</option>
                         </select>
                     </div>
 
                     <div class="col-md-6 mb-4">
                         <label class="form-label">Supplier<span class="text-danger">*</span></label>
-                        <select class="form-select" id="ProductSupplier" aria-label="Default select example">
+                        <select class="form-select" class="input-style" id="ProductSupplier" aria-label="Default select example">
                             <option value="none">Select Supplier</option>
                         </select>
                     </div>
-
+                    <div class="col-md-12">
+                        <div class="d-flex align-items-center mt-3">
+                            <img class="mb-4 me-3" id="newImg" style="width: 80px" src="{{asset('images/default.jpg')}}" />
+                            <div>
+                                <label class="form-label">Photo</label>
+                                <input oninput="newImg.src=window.URL.createObjectURL(this.files[0])"
+                                    type="file" class="form-control" id="ProductImage">
+                            </div>
+                        </div>
+                    </div>
                     <div class="col-md-6 mb-4">
                         <label class="form-label">Name<span class="text-danger">*</span></label>
-                        <input type="text" class="input-style" name="name" id="ProductName" /><br />
+                        <input type="text" class="input-style" class="input-style" name="name" id="ProductName" /><br />
                     </div>
 
 
                     <div class="col-md-6 mb-4">
                         <label class="form-label">Price <span class="text-danger">*</span></label>
-                        <input type="text" name="price" class="input-style" id="ProductPrice" /><br />
+                        <input type="text" class="input-style" name="price" class="input-style" id="ProductPrice" /><br />
                     </div>
 
 
 
                     <div class="col-md-6 mb-4">
                         <label class="form-label">Sell Price <span class="text-danger">*</span></label>
-                        <input type="text" name="sell_price" class="input-style" id="ProductSell" /><br />
+                        <input type="text" class="input-style" name="sell_price" class="input-style" id="ProductSell" /><br />
                     </div>
 
 
 
                     <div class="col-md-6 mb-4">
                         <label class="form-label">Date <span class="text-danger">*</span></label>
-                        <input type="date" name="date" class="input-style" id="ProductDate" /><br />
+                        <input type="date" class="input-style" name="date" class="input-style" id="ProductDate" /><br />
                     </div>
 
 
 
                     <div class="col-md-6 mb-4">
                         <label class="form-label">Code <span class="text-danger">*</span></label>
-                        <input type="text" name="date" class="input-style" id="ProductCode" /><br />
+                        <input type="text" class="input-style" name="date" class="input-style" id="ProductCode" /><br />
                     </div>
 
 
                     <div class="col-lg-6">
                         <label class="country">
-                            <select name="status" id="SelectStatus">
+                            <label class="form-label">Status<span class="text-danger">*</span></label>
+                            <select name="status" class="input-style" id="SelectStatus">
                                 <option value="">Select Status</option>
                                 <option value="Active">Active</option>
                                 <option value="InActive">InActive</option>
@@ -188,6 +198,8 @@ ProductSuprilerShow();
             let ProductDate = document.getElementById('ProductDate').value;
             let ProductCode = document.getElementById('ProductCode').value;
             let SelectStatus = document.getElementById('SelectStatus').value;
+            let imgInput = document.getElementById('ProductImage');
+            let imgFile = imgInput.files[0];
 
             if (ProductBrand.length === 0) {
                 errorToast("Product Brand Required!");
@@ -195,7 +207,13 @@ ProductSuprilerShow();
             } else if (ProductCategory.length === 0) {
                 errorToast("Product Category Required!");
                 return false;
-            } else {
+            }
+
+            else if (!imgInput.files || imgInput.files.length === 0) {
+                errorToast("Product Photo Required !");
+                return;
+            }
+            else {
                 let formData = new FormData();
                 formData.append('brand_id', ProductBrand);
                 formData.append('category_id', ProductCategory);
@@ -207,6 +225,7 @@ ProductSuprilerShow();
                 formData.append('date', ProductDate);
                 formData.append('status', SelectStatus);
                 formData.append('code', ProductCode);
+                formData.append('img', imgFile);
 
                 const config = {
                     headers: {

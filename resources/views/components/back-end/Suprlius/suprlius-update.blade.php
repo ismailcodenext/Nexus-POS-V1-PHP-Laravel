@@ -1,48 +1,44 @@
 <!-- Supplier Update Modal -->
 <div id="custom-modal-1" class="custom-modal">
     <div class="custom-modal-content">
+        <span class="custom-close">&times;</span>
         <h2>Update Supplier</h2>
         <div class="row">
             <div class="col-lg-6">
-                <div class="upload-profile">
-                    <div class="item">
-                        <div class="img-box">
-                            <!-- Image Preview -->
-                            <img id="imagePreview" src="{{ asset('images/default.jpg') }}" alt="Image Preview"
-                                style="width: 50px; height: 50px; object-fit: cover; display: block;" />
-                        </div>
-                        <div class="profile-wrapper">
-                            <label class="custom-file-input-wrapper">
-                                <input type="file" class="custom-file-input" aria-label="Upload Photo"
-                                    id="UpdateSuprilerImg" accept="image/*" onchange="previewImage(event)" />
-                            </label>
-                        </div>
+                <div class="d-flex align-items-center mt-3">
+                    <img class="w-25 me-3" id="oldImg"
+                         src="{{ asset('images/default.jpg') }}" />
+                    <div>
+                        <label class="form-label">Photo</label>
+                        <input oninput="updatePreview(this)" type="file" class="form-control"
+                               id="UpdateSuprliusImage">
+                        <input class="d-none" id="updateID">
                     </div>
                 </div>
+
             </div>
 
             <div class="col-lg-6"></div>
 
             <div class="col-lg-6">
-                <input type="text" name="name" placeholder="Enter Name" id="UpdateSuprilerName" /><br />
+                <input type="text" name="name" class="input-style" placeholder="Enter Name" id="UpdateSuprilerName" /><br />
             </div>
             <div class="col-lg-6">
-                <input type="text" name="company" placeholder="Enter Company Name"
+                <input type="text" name="company" class="input-style" placeholder="Enter Company Name"
                     id="UpdateSuprilerCompany" /><br />
             </div>
             <div class="col-lg-6">
-                <input type="text" name="mobile" placeholder="Enter Mobile Number"
+                <input type="text" name="mobile" class="input-style" placeholder="Enter Mobile Number"
                     id="UpdateSuprilerMobile" /><br />
             </div>
             <div class="col-lg-6">
-                <input type="text" name="address" placeholder="Enter Address" id="UpdateSuprilerAddress" /><br />
+                <input type="text" name="address" class="input-style" placeholder="Enter Address" id="UpdateSuprilerAddress" /><br />
             </div>
             <div class="col-lg-6">
-                <input type="email" name="email" placeholder="Enter Email" id="UpdateSuprilerEmail" /><br />
+                <input type="email" name="email" class="input-style" placeholder="Enter Email" id="UpdateSuprilerEmail" /><br />
             </div>
-            <input type="hidden" id="updateID">
             <div class="col-lg-6">
-                <select name="status" id="UpdateSelectStatus">
+                <select name="status" class="input-style" id="UpdateSelectStatus">
                     <option value="">Select Status</option>
                     <option value="Active">Active</option>
                     <option value="InActive">InActive</option>
@@ -56,39 +52,40 @@
 </div>
 
 <script>
-    // Preview Image before uploading
-    function previewImage(event) {
-        const imagePreview = document.getElementById('imagePreview');
-        const input = event.target;
+
+    async function updatePreview(input, imageUrl) {
+        const oldImg = document.getElementById('oldImg');
+
         if (input.files && input.files[0]) {
-            const file = input.files[0];
-            imagePreview.src = URL.createObjectURL(file);
+            oldImg.src = window.URL.createObjectURL(input.files[0]);
+        } else if (imageUrl) {
+            oldImg.src = imageUrl;
+        } else {
+            oldImg.src = "{{ asset('images/default.jpg') }}";
         }
     }
+
+
 
     // Function to fill the form when editing
     async function FillUpUpdateForm(id) {
         try {
             document.getElementById('updateID').value = id;
-            showLoader();
 
-            let res = await axios.post("/api/supriler-by-id", {
-                id: id.toString()
-            }, HeaderToken());
+
+            showLoader();
+            let res = await axios.post("/api/supriler-by-id", { id: id.toString() }, HeaderToken());
             hideLoader();
             let data = res.data.rows;
-            document.getElementById('UpdateSuprilerName').value = data.name;
-            document.getElementById('UpdateSuprilerCompany').value = data.company;
-            document.getElementById('UpdateSuprilerMobile').value = data.mobile;
-            document.getElementById('UpdateSuprilerAddress').value = data.address;
-            document.getElementById('UpdateSuprilerEmail').value = data.email;
-            document.getElementById('UpdateSelectStatus').value = data.status;
 
-            if (data.img_url) {
-                document.getElementById('imagePreview').src = data.img_url;
-            } else {
-                document.getElementById('imagePreview').src = "{{ asset('images/default.jpg') }}";
-            }
+            $('#UpdateSuprilerName').val(data.name);
+            $('#UpdateSuprilerCompany').val(data.company);
+            $('#UpdateSuprilerMobile').val(data.mobile);
+            $('#UpdateSuprilerAddress').val(data.address);
+            $('#UpdateSuprilerEmail').val(data.email);
+            $('#UpdateSelectStatus').val(data.status);
+            updatePreview(document.getElementById('UpdateSuprliusImage'), data.img_url);
+            openModal(document.getElementById('custom-modal-1'));
 
         } catch (e) {
             unauthorized(e.response.status);
@@ -105,7 +102,7 @@
             const UpdateSuprilerAddress = document.getElementById('UpdateSuprilerAddress').value;
             const UpdateSuprilerEmail = document.getElementById('UpdateSuprilerEmail').value;
             const UpdateSuprilerStatus = document.getElementById('UpdateSelectStatus').value;
-            const UpdateSuprilerImg = document.getElementById('UpdateSuprilerImg').files[0];
+            const UpdateSuprliusImage = document.getElementById('UpdateSuprliusImage').files[0];
 
             // Validate required fields
             if (!UpdateSuprilerName || !UpdateSuprilerStatus) {
@@ -120,12 +117,8 @@
             formData.append('address', UpdateSuprilerAddress);
             formData.append('email', UpdateSuprilerEmail);
             formData.append('status', UpdateSuprilerStatus);
+            formData.append('img', UpdateSuprliusImage);
             formData.append('id', updateID);
-
-            if (UpdateSuprilerImg) {
-                formData.append('img', UpdateSuprilerImg);
-            }
-
 
             // Set the request configuration with headers
             const config = {

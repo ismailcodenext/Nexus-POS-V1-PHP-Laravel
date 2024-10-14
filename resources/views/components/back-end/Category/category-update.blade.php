@@ -1,18 +1,19 @@
 <!-- Brand Update Modal -->
 <div id="custom-modal-1" class="custom-modal">
     <div class="custom-modal-content">
+        <span class="custom-close">&times;</span>
         <h2>Update Category</h2>
         <div class="row">
             <div class="col-lg-6 mt-4">
                 <!-- Category Name Input -->
                 <label for="UpdateCategoryName">Category Name</label>
-                <input type="text" name="category_name" placeholder="Update Category Name" id="UpdateCategoryName" class="form-control">
+                <input type="text" name="category_name"  placeholder="Update Category Name" class="input-style" id="UpdateCategoryName" class="form-control">
             </div>
 
             <div class="col-lg-6 mt-4">
                 <!-- Status Dropdown -->
                 <label for="UpdateCategoryStatus">Status</label>
-                <select name="status" id="UpdateCategoryStatus" class="form-control">
+                <select name="status" id="UpdateCategoryStatus" class="input-style" class="form-control">
                     <option value="">Select Status</option>
                     <option value="Active">Active</option>
                     <option value="InActive">InActive</option>

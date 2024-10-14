@@ -46,27 +46,27 @@
                     </div>
                     <div class="col-lg-6">
                         <label class="data">
-                            <input type="text" name="company" placeholder="Enter Company Name" id="SuprilerCompany"  /><br />
+                            <input type="text" name="company" class="input-style" placeholder="Enter Company Name" id="SuprilerCompany"  /><br />
                         </label>
                     </div>
                     <div class="col-lg-6">
                         <label class="data">
-                            <input type="text" name="mobile" placeholder="Enter Mobile Number" id="SuprilerMobile"  /><br />
+                            <input type="text" name="mobile" class="input-style" placeholder="Enter Mobile Number" id="SuprilerMobile"  /><br />
                         </label>
                     </div>
                     <div class="col-lg-6">
                         <label class="data">
-                            <input type="text" name="address" placeholder="Enter Address" id="SuprilerAddress"  /><br />
+                            <input type="text" name="address" class="input-style" placeholder="Enter Address" id="SuprilerAddress"  /><br />
                         </label>
                     </div>
                     <div class="col-lg-6">
                         <label class="data">
-                            <input type="email" name="email" placeholder="Enter Email" id="SuprilerEmail"  /><br />
+                            <input type="email" name="email" class="input-style" placeholder="Enter Email" id="SuprilerEmail"  /><br />
                         </label>
                     </div>
                     <div class="col-lg-6">
                         <label class="country">
-                            <select name="status" id="SelectStatus" >
+                            <select name="status" class="input-style" id="SelectStatus" >
                                 <option value="">Select Status</option>
                                 <option value="Active">Active</option>
                                 <option value="InActive">InActive</option>

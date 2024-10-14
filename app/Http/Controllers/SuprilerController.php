@@ -71,67 +71,10 @@ function SuprilerByID(Request $request){
 }
 
 
-
-// function SuprilerUpdate(Request $request)
-// {
-//     try {
-//         $user_id = Auth::id();
-//         $SuprilerData_Update = Supriler::find($request->input('id'));
-
-//         // Update the cast information
-//         $SuprilerData_Update->name = $request->input('name');
-//         $SuprilerData_Update->company = $request->input('company');
-//         $SuprilerData_Update->mobile = $request->input('mobile');
-//         $SuprilerData_Update->address = $request->input('address');
-//         $SuprilerData_Update->email = $request->input('email');
-//         $SuprilerData_Update->img_url = $request->input('img_url');
-//         $SuprilerData_Update->status = $request->input('status');
-
-//         if ($request->hasFile('img')) {
-//             $img = $request->file('img');
-//             $t = time();
-//             $file_name = $img->getClientOriginalName();
-//             $img_name = "{$user_id}-{$t}-{$file_name}";
-//             $img_url = "uploads/supriler-images/{$img_name}";
-
-//             // Upload File
-//             $img->move(public_path('uploads/supriler-images/'),$img_name);
-
-
-//             if ($SuprilerData_Update->img_url && file_exists(public_path($SuprilerData_Update->img_url))) {
-//                 unlink(public_path($SuprilerData_Update->img_url));
-//             }
-//             $SuprilerData_Update->img_url = $img_url;
-//         }
-
-
-//         $SuprilerData_Update->save();
-
-//         return response()->json(['status' => 'success', 'message' => 'Supriler Update Successful']);
-//     } catch (Exception $e) {
-//         return response()->json(['status' => 'fail', 'message' => $e->getMessage()]);
-//     }
-// }
-
-
-
 public function SuprilerUpdate(Request $request)
 {
     try {
         $user_id = Auth::id();
-
-        // Validate the request data
-        $request->validate([
-            'id' => 'required|integer|exists:suprilers,id', // Make sure the ID exists in the database
-            'name' => 'required|string|max:255',
-            'company' => 'nullable|string|max:255',
-            'mobile' => 'nullable|string|max:20',
-            'address' => 'nullable|string|max:255',
-            'email' => 'nullable|email|max:255',
-            'status' => 'required|string|in:Active,InActive',
-            'img' => 'nullable|image|mimes:jpeg,png,jpg,gif', // Ensures img is a valid image file
-        ]);
-
         // Find the supplier record to update
         $SuprilerData_Update = Supriler::find($request->input('id'));
 

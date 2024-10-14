@@ -1,12 +1,14 @@
 <!-- Brand Update Modal -->
 <div id="custom-modal-1" class="custom-modal">
     <div class="custom-modal-content">
+        <span class="custom-close">&times;</span>
+
         <h2>Update Product</h2>
         <div class="row">
             <!-- Brand Select -->
             <div class="col-md-6">
                 <label class="form-label">Brand<span class="text-danger">*</span></label>
-                <select class="form-select" id="UpdateProductBrand">
+                <select class="form-select" class="input-style" id="UpdateProductBrand">
                     <option value="none">Select Brand</option>
                 </select>
             </div>
@@ -14,7 +16,7 @@
             <!-- Category Select -->
             <div class="col-md-6">
                 <label class="form-label">Category<span class="text-danger">*</span></label>
-                <select class="form-select" id="UpdateProductCategory">
+                <select class="form-select" class="input-style" id="UpdateProductCategory">
                     <option value="none">Select Category</option>
                 </select>
             </div>
@@ -22,7 +24,7 @@
             <!-- Unit Select -->
             <div class="col-md-6">
                 <label class="form-label">Unit<span class="text-danger">*</span></label>
-                <select class="form-select" id="UpdateProductUnit">
+                <select class="form-select" class="input-style" id="UpdateProductUnit">
                     <option value="none">Select Unit</option>
                 </select>
             </div>
@@ -30,16 +32,39 @@
             <!-- Supplier Select -->
             <div class="col-md-6">
                 <label class="form-label">Supplier<span class="text-danger">*</span></label>
-                <select class="form-select" id="UpdateProductSupplier">
+                <select class="form-select" class="input-style" id="UpdateProductSupplier">
                     <option value="none">Select Supplier</option>
                 </select>
             </div>
+
+
+            <div class="col-md-12">
+                <div class="d-flex align-items-center mt-3">
+                    <img class="w-25 me-3" id="oldImg"
+                         src="{{ asset('images/default.jpg') }}" />
+                    <div>
+                        <label class="form-label">Photo</label>
+                        <input oninput="updatePreview(this)" type="file" class="form-control"
+                               id="UpdateProductImage">
+                        <input class="d-none" id="updateID">
+                    </div>
+                </div>
+            </div>
+
+
 
             <!-- Name Input -->
             <div class="col-md-6">
                 <label class="form-label">Name<span class="text-danger">*</span></label>
                 <input type="text" class="input-style" name="name" id="UpdateProductName" required />
             </div>
+
+                        <!-- Code Input -->
+                        <div class="col-md-6">
+                            <label class="form-label">Code<span class="text-danger">*</span></label>
+                            <input type="text" name="code" class="input-style" id="UpdateProductCode" required />
+                        </div>
+
 
             <!-- Price Input -->
             <div class="col-md-6">
@@ -59,15 +84,10 @@
                 <input type="date" name="date" class="input-style" id="UpdateProductDate" required />
             </div>
 
-            <!-- Code Input -->
-            <div class="col-md-6">
-                <label class="form-label">Code<span class="text-danger">*</span></label>
-                <input type="text" name="code" class="input-style" id="UpdateProductCode" required />
-            </div>
 
             <!-- Status Dropdown -->
-            <div class="col-lg-6 mt-4">
-                <label for="UpdateUnitStatus">Status</label>
+            <div class="col-lg-6">
+                <label for="UpdateUnitStatus">Status<span class="text-danger">*</span></label>
                 <select id="UpdateUnitStatus" class="form-control" required>
                     <option value="Active">Active</option>
                     <option value="InActive">Inactive</option>
@@ -128,6 +148,23 @@
         }
     }
 
+
+
+
+    async function updatePreview(input, imageUrl) {
+        const oldImg = document.getElementById('oldImg');
+
+        if (input.files && input.files[0]) {
+            oldImg.src = window.URL.createObjectURL(input.files[0]);
+        } else if (imageUrl) {
+            oldImg.src = imageUrl;
+        } else {
+            oldImg.src = "{{ asset('images/default.jpg') }}";
+        }
+    }
+
+
+
     // Fill form for updating product
     async function FillUpUpdateForm(id) {
         try {
@@ -137,16 +174,22 @@
             hideLoader();
 
             let data = res.data.rows;
-            $('#UpdateProductBrand').val(data.brand_id);
-            $('#UpdateProductCategory').val(data.category_id);
-            $('#UpdateProductUnit').val(data.unit_id);
-            $('#UpdateProductSupplier').val(data.suppliers_id);
-            $('#UpdateProductName').val(data.name);
-            $('#UpdateProductPrice').val(data.price);
-            $('#UpdateProductSell').val(data.sell_price);
-            $('#UpdateProductDate').val(data.date);
-            $('#UpdateProductCode').val(data.code);
-            $('#UpdateUnitStatus').val(data.status);
+
+
+
+
+            document.getElementById('UpdateProductBrand').value = data.brand_id;
+            document.getElementById('UpdateProductCategory').value = data.category_id;
+            document.getElementById('UpdateProductUnit').value = data.unit_id;
+            document.getElementById('UpdateProductSupplier').value = data.suppliers_id;
+            document.getElementById('UpdateProductName').value = data.name;
+            document.getElementById('UpdateProductPrice').value = data.price;
+            document.getElementById('UpdateProductSell').value = data.sell_price;
+            document.getElementById('UpdateProductDate').value = data.date;
+            document.getElementById('UpdateProductCode').value = data.code;
+            document.getElementById('UpdateUnitStatus').value = data.status;
+           // Update the preview with the existing image URL
+         updatePreview(document.getElementById('UpdateProductImage'), data.img_url);
 
             openModal(document.getElementById('custom-modal-1'));
         } catch (e) {

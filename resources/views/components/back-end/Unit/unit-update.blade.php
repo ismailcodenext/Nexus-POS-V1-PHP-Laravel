@@ -1,6 +1,7 @@
 <!-- Brand Update Modal -->
 <div id="custom-modal-1" class="custom-modal">
     <div class="custom-modal-content">
+        <span class="custom-close">&times;</span>
         <h2>Update Unit</h2>
         <div class="row">
             <div class="col-lg-6 mt-4">

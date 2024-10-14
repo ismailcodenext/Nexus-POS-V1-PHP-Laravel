@@ -1,41 +1,34 @@
-<!-- Brand Update Modal -->
 <div id="custom-modal-1" class="custom-modal">
     <div class="custom-modal-content">
+        <span class="custom-close">&times;</span>
         <h2>Update Brand</h2>
         <div class="row">
-            <!-- Image Upload Section -->
-            <div class="col-lg-6">
-                <div class="upload-profile">
-                    <div class="item">
-                        <div class="img-box">
-                            <!-- Image Preview -->
-                            <img id="imagePreview" src="{{ asset('images/default.jpg') }}" alt="Image Preview" style="width: 50px; height: 50px; object-fit: cover; display: block;" />
-                        </div>
-                        <div class="profile-wrapper">
-                            <label class="custom-file-input-wrapper">
-                                <input type="file" class="custom-file-input" aria-label="Upload Photo" id="UpdateBrandImg" accept="image/*" onchange="previewImage(event)" />
-                            </label>
-                            <p>PNG, JPEG or GIF (up to 1 MB)</p>
-                        </div>
+
+            <div class="col-md-12">
+                <div class="d-flex align-items-center mt-3">
+                    <img class="me-3" style="width: 60px;" id="oldImg"
+                         src="{{ asset('images/default.jpg') }}" />
+                    <div>
+                        <label class="form-label">Photo</label>
+                        <input oninput="updatePreview(this)"  type="file" class="form-control" id="UpdateBrandImage">
+                        <input class="d-none" id="updateID">
                     </div>
                 </div>
             </div>
-
             <div class="col-lg-6 mt-4">
                 <!-- Brand Name Input -->
                 <label for="UpdateBrandName">Brand Name</label>
-                <input type="text" name="brand_name" placeholder="Brand name" id="UpdateBrandName" class="form-control">
+                <input type="text" name="name" placeholder="Brand name" id="UpdateBrandName" class="form-control">
             </div>
 
             <div class="col-lg-6 mt-4">
                 <!-- Status Dropdown -->
-                <label for="SelectStatus">Status</label>
-                <select name="status" id="UpdateBrandStatus" class="form-control">
+                <label for="UpdateSelectStatus">Status</label>
+                <select name="status" class="form-control" id="UpdateSelectStatus"> <!-- Changed to form-control -->
                     <option value="">Select Status</option>
                     <option value="Active">Active</option>
                     <option value="InActive">InActive</option>
                 </select>
-                <input type="hidden" id="updateID">
                 <div class="upload-profile mt-4">
                     <button type="submit" class="submit btn btn-primary" onclick="Update()">Update</button>
                 </div>
@@ -44,52 +37,51 @@
     </div>
 </div>
 
+
 <script>
-    // Preview Image before uploading
-    async function previewImage(event) {
-        const imagePreview = document.getElementById('imagePreview');
-        const input = event.target;
+
+async function updatePreview(input, imageUrl) {
+        const oldImg = document.getElementById('oldImg');
+
         if (input.files && input.files[0]) {
-            const file = input.files[0];
-            imagePreview.src = URL.createObjectURL(file);
+            oldImg.src = window.URL.createObjectURL(input.files[0]);
+        } else if (imageUrl) {
+            oldImg.src = imageUrl;
+        } else {
+            oldImg.src = "{{ asset('images/default.jpg') }}";
         }
     }
 
-    // Function to fill the form when editing
-    async function FillUpUpdateForm(id) {
-        try {
-            // Set the brand id in the hidden input
-            document.getElementById('updateID').value = id;
-           // showLoader();
+// Function to fill the form when editing
+async function FillUpUpdateForm(id) {
+    try {
+        // Set the brand id in the hidden input
+        document.getElementById('updateID').value = id;
+        showLoader();
 
-            // Fetch the brand data by ID
-            let res = await axios.post("/api/brand-by-id", { id: id.toString() }, HeaderToken());
-           // hideLoader();
+        // Fetch the brand data by ID
+        let res = await axios.post("/api/brand-by-id", { id: id.toString() }, HeaderToken());
+        hideLoader();
 
-            // Populate the form with the fetched data
-            let data = res.data.rows;
-            document.getElementById('UpdateBrandName').value = data.name;
-            document.getElementById('SelectStatus').value = data.status;
+        // Populate the form with the fetched data
+        let data = res.data.rows;
+        document.getElementById('UpdateBrandName').value = data.name;
+        document.getElementById('UpdateSelectStatus').value = data.status;
+        updatePreview(document.getElementById('UpdateBrandImage'), data.logo);
+        openModal(document.getElementById('custom-modal-1'));
 
-            // If there is a logo, update the image preview
-            if (data.logo) {
-                document.getElementById('imagePreview').src = data.logo;
-            } else {
-                document.getElementById('imagePreview').src = "{{ asset('images/default.jpg') }}";
-            }
-
-        } catch (e) {
-            unauthorized(e.response.status);
-        }
+    } catch (e) {
+        unauthorized(e.response.status);
     }
+}
 
-   // Update Brand Script
+// Update Brand Script
 async function Update() {
     try {
         let UpdateBrandName = document.getElementById('UpdateBrandName').value;
+        let UpdateBrandImage = document.getElementById('UpdateBrandImage').files[0];
+        let UpdateBrandStatus = document.getElementById('UpdateSelectStatus').value;
         let updateID = document.getElementById('updateID').value;
-        let UpdateBrandImg = document.getElementById('UpdateBrandImg').files[0];
-        let UpdateBrandStatus = document.getElementById('UpdateBrandStatus').value;
 
         // Validate required fields
         if (!UpdateBrandName || !UpdateBrandStatus) {
@@ -100,8 +92,10 @@ async function Update() {
         let formData = new FormData();
         formData.append('name', UpdateBrandName);
         formData.append('status', UpdateBrandStatus);
-        if (UpdateBrandImg) {
-            formData.append('img', UpdateBrandImg);
+
+        // Append the image if it exists
+        if (UpdateBrandImage) {
+            formData.append('img', UpdateBrandImage);
         }
         formData.append('id', updateID);
 
@@ -129,10 +123,10 @@ async function Update() {
         }
 
     } catch (e) {
-        unauthorized(e.response.status);
+        unauthorized(e.response.status); // Handle unauthorized or other errors
     }
 }
 
-
-
 </script>
+
+

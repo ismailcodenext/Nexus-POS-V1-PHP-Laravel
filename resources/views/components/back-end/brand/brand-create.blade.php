@@ -14,13 +14,22 @@
                         <div class="upload-profile">
                             <div class="item">
                                 <div class="img-box">
-                                    <!-- Image Preview -->
-                                    <img id="imagePreview" src="{{ asset('images/default.jpg') }}" alt="Image Preview" style="width: 50px; height: 50px; object-fit: cover; display: block;" />
+                                    <svg width="32" height="32" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                        <rect width="50" height="50" fill="url(#pattern0_1204_6)" fill-opacity="0.5" />
+                                        <defs>
+                                            <pattern id="pattern0_1204_6" patternContentUnits="objectBoundingBox" width="1" height="1">
+                                                <use xlink:href="#image0_1204_6" transform="scale(0.005)" />
+                                            </pattern>
+                                            <image id="image0_1204_6" width="200" height="200" />
+                                        </defs>
+                                    </svg>
+                                    <!-- Add an img element for the image preview -->
+                                    <img id="imagePreview" style="display:none; max-width:100%; height:auto;" alt="Image Preview" />
                                 </div>
 
                                 <div class="profile-wrapper">
                                     <label class="custom-file-input-wrapper">
-                                        <input type="file" class="custom-file-input" aria-label="Upload Photo" id="BrandImg" accept="image/*" onchange="previewImage(event)" />
+                                        <input type="file" class="custom-file-input" aria-label="Upload Photo" id="BrandImg"  />
                                     </label>
                                     <p>PNG, JPEG or GIF (up to 1 MB)</p>
                                 </div>
@@ -30,14 +39,14 @@
 
                     <div class="col-lg-6"></div>
 
-                    <div class="col-lg-6 mt-4">
-                        <label class="data">
-                            <input type="text" name="brand_name" placeholder="Brand name" id="BrandName" /><br />
+                    <div class="col-lg-6">
+                        <label class="data mt-2">
+                            <input type="text" name="name" class="input-style" placeholder="Brand name" id="BrandName" /><br />
                         </label>
                     </div>
-                    <div class="col-lg-6 mt-4">
+                    <div class="col-lg-6">
                         <label class="country">
-                            <select name="status" id="SelectStatus">
+                            <select name="status" class="input-style" id="SelectStatus">
                                 <option value="">Select Status</option>
                                 <option value="Active">Active</option>
                                 <option value="InActive">InActive</option>
@@ -55,65 +64,34 @@
 <!-- Finance- Pop Up Modal End -->
 
 <script>
-//    async function Save(event) {
-//     event.preventDefault(); // Prevent the form from submitting and refreshing the page
-//     try {
-//         let BrandName = document.getElementById('BrandName').value;
-//         let SelectStatus = document.getElementById('SelectStatus').value;
-//         let imgInput = document.getElementById('BrandImg');
-//         let imgFile = imgInput.files[0];
 
-//         if (BrandName.length === 0) {
-//             errorToast("Brand Name Required !");
-//             return; // Exit the function if validation fails
-//         } else if (SelectStatus.length === 0) {
-//             errorToast("Status Required !");
-//             return;
-//         } else if (!imgInput.files || imgInput.files.length === 0) {
-//             errorToast("Photo Required !");
-//             return;
-//         } else {
-//             let formData = new FormData();
-//             formData.append('brand_name', BrandName);
-//             formData.append('status', SelectStatus);
-//             formData.append('img', imgFile);
+document.getElementById('BrandImg').addEventListener('change', function (event) {
+    const imgFile = event.target.files[0];
+    const imgPreview = document.getElementById('imagePreview');
 
-//             const config = {
-//                 headers: {
-//                     'content-type': 'multipart/form-data',
-//                     ...HeaderToken().headers
-//                 }
-//             }
-
-//             let res = await axios.post("/api/create-brand", formData, config);
-
-//             if (res.data['status'] === "success") {
-//                 successToast(res.data['message']);
-//                 document.getElementById("signup").reset();
-//                 document.getElementById('imagePreview').src = "{{ asset('images/default.jpg') }}"; // Reset the image preview
-
-//                 // Use the global closeModal function to close the modal properly
-//                 const modal = document.getElementById('myModal');
-//                 closeModal(modal);  // Close the modal smoothly
-
-//                 await getList();  // Refresh your brand list or any other actions needed
-//             } else {
-//                 errorToast(res.data['message']);
-//             }
-//         }
-//     } catch (e) {
-//         unauthorized(e.response.status);
-//     }
-// }
+    if (imgFile) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            imgPreview.src = e.target.result; // Set the image source to the file data
+            imgPreview.style.display = 'block'; // Show the image preview
+        }
+        reader.readAsDataURL(imgFile); // Read the file as a data URL
+    } else {
+        imgPreview.src = ""; // Clear the preview if no file is selected
+        imgPreview.style.display = 'none'; // Hide the preview
+    }
+});
 
 
 
-// Brand Create Script
-async function Save(event) {
-    event.preventDefault(); // Prevent the form from submitting and refreshing the page
+    async function Save(event) {
+    event.preventDefault();
     try {
+
+
         let BrandName = document.getElementById('BrandName').value;
         let SelectStatus = document.getElementById('SelectStatus').value;
+
         let imgInput = document.getElementById('BrandImg');
         let imgFile = imgInput.files[0];
 
@@ -124,42 +102,38 @@ async function Save(event) {
         } else if (SelectStatus.length === 0) {
             errorToast("Status Required !");
             return;
-        } else if (!imgInput.files || imgInput.files.length === 0) {
-            errorToast("Photo Required !");
-            return;
         }
-
-        // Prepare form data
-        let formData = new FormData();
-        formData.append('brand_name', BrandName);
-        formData.append('status', SelectStatus);
-        formData.append('img', imgFile);
-
-        const config = {
-            headers: {
-                'content-type': 'multipart/form-data',
-                ...HeaderToken().headers
-            }
-        };
-
-        // Make the request
-        let res = await axios.post("/api/create-brand", formData, config);
-
-        if (res.data['status'] === "success") {
-            successToast(res.data['message']);
-            document.getElementById("signup").reset();
-            document.getElementById('imagePreview').src = "{{ asset('images/default.jpg') }}"; // Reset the image preview
-
-            // Use the global closeModal function to close the modal properly
-            const modal = document.getElementById('myModal');
-            closeModal(modal);  // Close the modal smoothly
-
-            await getList();  // Refresh your brand list or any other actions needed
+        else if (!imgFile) {
+            errorToast("Photo is required!");
         } else {
-            errorToast(res.data['message']);
+            // Creating form data for submission
+            let formData = new FormData();
+            formData.append('name', BrandName);
+            formData.append('status', SelectStatus);
+            formData.append('img_url', imgFile); // Append image file
+
+            const config = {
+                headers: {
+                    'content-type': 'multipart/form-data',
+                    ...HeaderToken().headers
+                }
+            }
+
+            // Sending the form data to the server
+            let res = await axios.post("/api/create-brand", formData, config);
+
+            if (res.data['status'] === "success") {
+                successToast(res.data['message']);
+                document.getElementById("signup").reset();  // Reset form
+                const modal = document.getElementById('myModal');
+            closeModal(modal);  // Close the modal smoothly
+                await getList();  // Refresh the list after adding a new supplier
+            } else {
+                errorToast(res.data['message']);
+            }
         }
     } catch (e) {
-        unauthorized(e.response.status);
+        unauthorized(e.response.status);  // Handle authorization issues
     }
 }
 

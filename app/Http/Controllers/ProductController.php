@@ -32,8 +32,18 @@ class ProductController extends Controller
             //     'status' => 'required|string'
             // ]);
 
+
+            $img = $request->file('img');
+            $t = time();
+            $file_name = $img->getClientOriginalName();
+            $img_name = "{$user_id}-{$t}-{$file_name}";
+            $img_url = "uploads/Product-img/{$img_name}";
+            $img->move(public_path('uploads/Product-img'), $img_name);
+
+
             // Create the category
             Product::create([
+                'img_url' => $img_url,
                 'name' => $request->input('name'),
                 'price' => $request->input('price'),
                 'sell_price' => $request->input('sell_price'),
@@ -87,6 +97,24 @@ class ProductController extends Controller
             $ProductData_Update->unit_id = $request->input('unit_id');
             $ProductData_Update->suppliers_id = $request->input('suppliers_id');
 
+            if ($request->hasFile('img')) {
+                $img = $request->file('img');
+                $t = time();
+                $file_name = $img->getClientOriginalName();
+                $img_name = "{$user_id}-{$t}-{$file_name}";
+                $img_url = "uploads/Product-img/{$img_name}";
+
+                // Upload File
+                $img->move(public_path('uploads/Product-img'), $img_name);
+
+
+                if ($ProductData_Update->img_url && file_exists(public_path($ProductData_Update->img_url))) {
+                    unlink(public_path($ProductData_Update->img_url));
+                }
+                $ProductData_Update->img_url = $img_url;
+            }
+
+
 
             // Save the updated Product data
             $ProductData_Update->save();
@@ -118,6 +146,12 @@ function ProductDelete(Request $request)
         if (!$ProductData_Delete) {
             return response()->json(['status' => 'fail', 'message' => 'Product not found.']);
         }
+
+
+        if ($ProductData_Delete->img_url && file_exists(public_path($ProductData_Delete->img_url))) {
+            unlink(public_path($ProductData_Delete->img_url));
+        }
+
         Product::where('id', $Product_ID)->delete();
 
         return response()->json(['status' => 'success', 'message' => 'Product Delete Successful']);

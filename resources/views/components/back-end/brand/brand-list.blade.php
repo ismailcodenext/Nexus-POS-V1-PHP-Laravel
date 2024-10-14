@@ -295,7 +295,7 @@
                             <div id="menu-wrap">
                                 <input type="checkbox" class="toggler" />
                                 <div class="dots"><div></div></div>
-                                <div class="menu">
+                                 <div class="menu">
                                     <div>
                                         <ul>
                                             <li><a href="#" class="custom-open-modal-btn" data-id="${item['id']}" data-modal="custom-modal-1">Edit</a></li>
