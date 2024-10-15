@@ -23,7 +23,7 @@
                             </button>
                         </div>
                     </div>
-            
+
                     <!-- Category Input with Plus Icon -->
                     <div class="col-md-6 mb-4">
                         <label class="form-label">Category <span class="text-danger">*</span></label>
@@ -36,7 +36,7 @@
                             </button>
                         </div>
                     </div>
-            
+
                     <!-- Unit Input with Plus Icon -->
                     <div class="col-md-6 mb-4">
                         <label class="form-label">Unit <span class="text-danger">*</span></label>
@@ -50,7 +50,7 @@
                             </button>
                         </div>
                     </div>
-            
+
                     <!-- Supplier Input with Plus Icon -->
                     <div class="col-md-6 mb-4">
                         <label class="form-label">Supplier <span class="text-danger">*</span></label>
@@ -120,9 +120,9 @@
                             <button type="submit" class="submit">Submit</button>
                         </div>
                 </div>
-            
+
                 <!-- Modals -->
-                
+
                 <!-- Add Brand Modal -->
                 <div class="modal fade" id="addBrandModal" tabindex="-1" aria-labelledby="addBrandModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
@@ -149,7 +149,7 @@
                                                 <!-- Add an img element for the image preview -->
                                                 <img id="BrandimagePreview" style="display:none; max-width:100%; height:auto;" alt="Image Preview" />
                                             </div>
-            
+
                                             <div class="profile-wrapper">
                                                 <label class="custom-file-input-wrapper">
                                                     <input type="file" class="custom-file-input" aria-label="Upload Photo" id="CreateBrandImg"  />
@@ -159,9 +159,9 @@
                                         </div>
                                     </div>
                                 </div>
-            
+
                                 <div class="col-lg-6"></div>
-            
+
                                 <div class="col-lg-6">
                                     <label class="data mt-2">
                                         <input type="text" name="name" class="input-style" placeholder="Brand name" id="CreateBrandName" /><br />
@@ -185,7 +185,7 @@
                         </div>
                     </div>
                 </div>
-            
+
                 <!-- Add Category Modal -->
                 <div class="modal fade" id="addCategoryModal" tabindex="-1" aria-labelledby="addCategoryModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
@@ -222,7 +222,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Add Unit Modal -->
                 <div class="modal fade" id="addUnitModal" tabindex="-1" aria-labelledby="addUnitModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
@@ -256,7 +256,7 @@
                         </div>
                     </div>
                 </div>
-            
+
                 <!-- Add Supplier Modal -->
                 <div class="modal fade" id="addSupplierModal" tabindex="-1" aria-labelledby="addSupplierModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
@@ -283,7 +283,7 @@
                                                     <!-- Add an img element for the image preview -->
                                                     <img id="SuprilerimagePreview" style="display:none; max-width:100%; height:auto;" alt="Image Preview" />
                                                 </div>
-                
+
                                                 <div class="profile-wrapper">
                                                     <label class="custom-file-input-wrapper">
                                                         <input type="file" class="custom-file-input" aria-label="Upload Photo" id="SuprilerImage"  />
@@ -293,9 +293,9 @@
                                             </div>
                                         </div>
                                     </div>
-                
+
                                     <div class="col-lg-6"></div>
-                
+
                                     <div class="col-lg-6">
                                         <label class="data">
                                             <input type="text" name="name" placeholder="Enter Name" id="SuprilerName"  /><br />
@@ -354,7 +354,7 @@
     document.getElementById('BrandImg').addEventListener('change', function (event) {
         const imgFile = event.target.files[0];
         const BrandimgPreview = document.getElementById('BrandimagePreview');
-    
+
         if (imgFile) {
             const reader = new FileReader();
             reader.onload = function (e) {
@@ -367,20 +367,20 @@
             BrandimgPreview.style.display = 'none'; // Hide the preview
         }
     });
-    
-    
-    
+
+
+
         async function BrandSave(event) {
         event.preventDefault();
         try {
-    
-    
+
+
             let CreateBrandName = document.getElementById('CreateBrandName').value;
             let BrandSelectStatus = document.getElementById('BrandSelectStatus').value;
-    
+
             let imgInput = document.getElementById('CreateBrandImg');
             let imgFile = imgInput.files[0];
-    
+
             // Validation
             if (CreateBrandName.length === 0) {
                 errorToast("Brand Name Required !");
@@ -397,17 +397,17 @@
                 formData.append('name', CreateBrandName);
                 formData.append('status', BrandSelectStatus);
                 formData.append('img_url', imgFile); // Append image file
-    
+
                 const config = {
                     headers: {
                         'content-type': 'multipart/form-data',
                         ...HeaderToken().headers
                     }
                 }
-    
+
                 // Sending the form data to the server
                 let res = await axios.post("/api/create-brand", formData, config);
-    
+
                 if (res.data['status'] === "success") {
                     successToast(res.data['message']);
                     document.getElementById("signup").reset();  // Reset form
@@ -423,7 +423,7 @@
             unauthorized(e.response.status);  // Handle authorization issues
         }
     }
-    
+
     </script>
 
 
@@ -431,58 +431,117 @@
 <script>
 
 
+// async function CategorySave(event) {
+//     event.preventDefault();  // Stop the form from submitting and reloading the page
+
+//     try {
+//         let CategoryName = document.getElementById('CategoryName').value;
+//         let CategorySelectStatus = document.getElementById('CategorySelectStatus').value;
+
+//         // Basic validation
+//         if (CategoryName.length === 0) {
+//             errorToast("Category Name Required!");
+//             return false;
+//         } else if (CategorySelectStatus === '' || CategorySelectStatus === 'Select Status') {
+//             errorToast("Status Required!");
+//             return false;
+//         }
+
+//         // Prepare form data
+//         let formData = new FormData();
+//         formData.append('category_name', CategoryName);
+//         formData.append('status', CategorySelectStatus);
+
+//         // Axios request configuration
+//         const config = {
+//             headers: {
+//                 'content-type': 'multipart/form-data',
+//                 ...HeaderToken().headers
+//             }
+//         };
+
+//         // Send the POST request to create a new category
+//         let res = await axios.post("/api/create-category", formData, config);
+
+//         if (res.data['status'] === "success") {
+//             successToast(res.data['message']);
+//             document.getElementById("signup").reset();
+
+//             // Close the modal after saving
+//             const modal = document.getElementById('addCategoryModal');
+//             const modalInstance = bootstrap.Modal.getInstance(modal);
+//             modalInstance.hide();
+
+//             // Refresh the category list dynamically without reloading
+//             await addNewCategoryToDropdown(res.data.newCategory); // Add new category to the dropdown without full reload
+
+//         } else {
+//             errorToast(res.data['message']);
+//         }
+//     } catch (e) {
+//         unauthorized(e.response.status);
+//     }
+//     return false;
+// }
+
+
+
 async function CategorySave(event) {
-        event.preventDefault();  // Stop the form from submitting and reloading the page
-        
-        try {
-            let CategoryName = document.getElementById('CategoryName').value;
-            let CategorySelectStatus = document.getElementById('CategorySelectStatus').value;
+    event.preventDefault();  // Stop the form from submitting and reloading the page
 
-            // Basic validation
-            if (CategoryName.length === 0) {
-                errorToast("Category Name Required!");
-                return false;
-            } else if (CategorySelectStatus === '' || CategorySelectStatus === 'Select Status') {
-                errorToast("Status Required!");
-                return false;
-            }
+    try {
+        let CategoryName = document.getElementById('CategoryName').value;
+        let CategorySelectStatus = document.getElementById('CategorySelectStatus').value;
 
-            // Prepare form data
-            let formData = new FormData();
-            formData.append('category_name', CategoryName);
-            formData.append('status', CategorySelectStatus);
-
-            // Axios request configuration
-            const config = {
-                headers: {
-                    'content-type': 'multipart/form-data',
-                    ...HeaderToken().headers
-                }
-            };
-
-            // Send the POST request to create a new category
-            let res = await axios.post("/api/create-category", formData, config);
-
-            if (res.data['status'] === "success") {
-                successToast(res.data['message']);
-                document.getElementById("signup").reset();
-
-               // Close the modal after saving
-               const modal = document.getElementById('addCategoryModal');
-                const modalInstance = bootstrap.Modal.getInstance(modal);
-                modalInstance.hide();
-
-                // Refresh the category list dynamically without reloading
-                await ProductCategoryShow();  
-
-            } else {
-                errorToast(res.data['message']);
-            }
-        } catch (e) {
-            unauthorized(e.response.status);
+        // Basic validation
+        if (CategoryName.length === 0) {
+            errorToast("Category Name Required!");
+            return false;
+        } else if (CategorySelectStatus === '' || CategorySelectStatus === 'Select Status') {
+            errorToast("Status Required!");
+            return false;
         }
-        return false;
+
+        // Prepare form data
+        let formData = new FormData();
+        formData.append('category_name', CategoryName);
+        formData.append('status', CategorySelectStatus);
+
+        // Axios request configuration
+        const config = {
+            headers: {
+                'content-type': 'multipart/form-data',
+                ...HeaderToken().headers
+            }
+        };
+
+        // Send the POST request to create a new category
+        let res = await axios.post("/api/create-category", formData, config);
+
+        if (res.data['status'] === "success") {
+            successToast(res.data['message']);
+            document.getElementById("signup").reset();
+
+            // Close the modal after saving
+            const modal = document.getElementById('addCategoryModal');
+            const modalInstance = bootstrap.Modal.getInstance(modal);
+            modalInstance.hide();
+
+            // Refresh the category list dynamically without reloading
+            await refreshCategoryList();
+
+        } else {
+            errorToast(res.data['message']);
+        }
+    } catch (e) {
+        unauthorized(e.response.status);
     }
+    return false;
+}
+
+
+
+
 
 </script>
 
@@ -491,7 +550,7 @@ async function CategorySave(event) {
     document.getElementById('SuprilerImage').addEventListener('change', function (event) {
         const imgFile = event.target.files[0];
         const SuprilerimgPreview = document.getElementById('SuprilerimagePreview');
-    
+
         if (imgFile) {
             const reader = new FileReader();
             reader.onload = function (e) {
@@ -504,9 +563,9 @@ async function CategorySave(event) {
             SuprilerimgPreview.style.display = 'none'; // Hide the preview
         }
     });
-    
-    
-    
+
+
+
         async function SupplierSave(event) {
         event.preventDefault();
         try {
@@ -518,7 +577,7 @@ async function CategorySave(event) {
             let SuplierSelectStatus = document.getElementById('SuplierSelectStatus').value;
             let imgInput = document.getElementById('SuprilerImage');
             let imgFile = imgInput.files[0];
-    
+
             // Validation
             if (!SuprilerName) {
                 errorToast("Supplier Name is required!");
@@ -544,17 +603,17 @@ async function CategorySave(event) {
                 formData.append('email', SuprilerEmail);
                 formData.append('status', SuplierSelectStatus);
                 formData.append('img_url', imgFile); // Append image file
-    
+
                 const config = {
                     headers: {
                         'content-type': 'multipart/form-data',
                         ...HeaderToken().headers
                     }
                 }
-    
+
                 // Sending the form data to the server
                 let res = await axios.post("/api/create-supriler", formData, config);
-    
+
                 if (res.data['status'] === "success") {
                     successToast(res.data['message']);
                     document.getElementById("signup").reset();  // Reset form
@@ -569,9 +628,9 @@ async function CategorySave(event) {
             unauthorized(e.response.status);  // Handle authorization issues
         }
     }
-    
+
     </script>
-    
+
 
 
 
@@ -631,7 +690,8 @@ async function CategorySave(event) {
 
 <script>
     ProductBrandShow();
-    ProductCategoryShow();
+    // ProductCategoryShow();
+    refreshCategoryList();
     ProductUnitShow();
     ProductSuprilerShow();
     async function ProductBrandShow() {
@@ -652,9 +712,13 @@ async function CategorySave(event) {
     }
 
 
-    async function ProductCategoryShow() {
+
+
+
+
+    async function refreshCategoryList() {
     try {
-        // Make an AJAX call to the API to fetch the category list
+        // Fetch the updated category list
         let res = await axios.get("/api/category-list", HeaderToken());
 
         // Check if the response is successful
@@ -673,7 +737,7 @@ async function CategorySave(event) {
         // Add the default "Select Category" option at the top
         optionsHtmlCategory = `<option value="none" selected>Select Category</option>` + optionsHtmlCategory;
 
-        // Populate the dropdown with the fetched categories
+        // Populate the dropdown with the updated categories
         document.getElementById("ProductCategory").innerHTML = optionsHtmlCategory;
 
     } catch (error) {
@@ -681,25 +745,6 @@ async function CategorySave(event) {
     }
 }
 
-// Event listener: When the modal is shown, call ProductCategoryShow to fetch categories
-$(document).on('show.bs.modal', '#addCategoryModal', function () {
-    ProductCategoryShow(); // Fetch categories when the modal is shown
-});
-
-// Fetch and populate categories on page load
-document.addEventListener('DOMContentLoaded', function () {
-    ProductCategoryShow(); // This will fetch categories when the page loads
-});
-
-// Optional: Function to refresh categories dynamically without reloading the page
-function refreshCategoryList() {
-    ProductCategoryShow(); // Call the function to refresh the dropdown
-}
-
-// Add an event listener to a button to refresh the category list if needed
-$(document).on('click', '#refreshCategoryButton', function () {
-    refreshCategoryList(); // Call this function when you need to refresh
-});
 
 
 
@@ -707,43 +752,39 @@ $(document).on('click', '#refreshCategoryButton', function () {
 
 
 
+//                     async function ProductCategoryShow() {
+//     try {
+//         // Make an AJAX call to the API to fetch the category list
+//         let res = await axios.get("/api/category-list", HeaderToken());
 
-
-
-// Function to fetch and populate the category dropdown
- // Function to fetch and populate the category dropdown dynamically
-//  async function ProductCategoryShow() {
-//         try {
-//             // Make an AJAX call to the API to fetch the category list
-//             let res = await axios.get("/api/category-list", HeaderToken());  // Assuming your API is working
-//             let Category = res.data.CategoryData;
-
-//             // Build the options for the dropdown
-//             let optionsHtmlCategory = Category.map(category =>
-//                 `<option value="${category.id}">${category.category_name}</option>`
-//             ).join('');
-
-//             // Add the default "Select Category" option at the top
-//             optionsHtmlCategory = `<option value="none" selected>Select Category</option>` + optionsHtmlCategory;
-
-//             // Populate the dropdown with the fetched categories
-//             document.getElementById("ProductCategory").innerHTML = optionsHtmlCategory;
-
-//         } catch (error) {
-//             console.error("Error fetching categories:", error);
+//         // Check if the response is successful
+//         if (res.data.status !== 'success') {
+//             console.error("Failed to fetch categories:", res.data.message);
+//             return;
 //         }
+
+//         let Category = res.data.CategoryData;
+
+//         // Build the options for the dropdown
+//         let optionsHtmlCategory = Category.map(category =>
+//             `<option value="${category.id}">${category.category_name}</option>`
+//         ).join('');
+
+//         // Add the default "Select Category" option at the top
+//         optionsHtmlCategory = `<option value="none" selected>Select Category</option>` + optionsHtmlCategory;
+
+//         // Populate the dropdown with the fetched categories
+//         document.getElementById("ProductCategory").innerHTML = optionsHtmlCategory;
+
+//     } catch (error) {
+//         console.error("Error fetching categories:", error);
 //     }
+// }
 
-//     // Event listener: When the modal is shown, call ProductCategoryShow to fetch categories
-//     $(document).on('show.bs.modal', '#addCategoryModal', function () {
-//         ProductCategoryShow();
-//     });
 
-//     // Or you can call this function on any other event as per your need
-//     // For example, when the page loads or another event occurs
-//     document.addEventListener('DOMContentLoaded', function () {
-//         ProductCategoryShow();  // Fetch and populate categories on page load
-//     });
+
+
+
 
 
 
