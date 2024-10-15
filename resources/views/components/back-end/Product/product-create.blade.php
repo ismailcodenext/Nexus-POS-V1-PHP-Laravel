@@ -1,3 +1,14 @@
+<style>
+     .modal-content-popap {
+    position: relative;
+    background-color: #fefefe;
+    margin: 40px auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 100%;
+  }
+</style>
+
 <!-- Finance- Pop Up Modal Start -->
 <section id="myModal" class="modal">
     <div class="modal-content">
@@ -126,56 +137,57 @@
                 <!-- Add Brand Modal -->
                 <div class="modal fade" id="addBrandModal" tabindex="-1" aria-labelledby="addBrandModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
-                        <div class="modal-content">
+                        <div class="modal-content modal-content-popap">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="addBrandModalLabel">Add New Brand</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
 
-                                <div class="col-lg-6">
-                                    <div class="upload-profile">
-                                        <div class="item">
-                                            <div class="img-box">
-                                                <svg width="32" height="32" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                                                    <rect width="50" height="50" fill="url(#pattern0_1204_6)" fill-opacity="0.5" />
-                                                    <defs>
-                                                        <pattern id="pattern0_1204_6" patternContentUnits="objectBoundingBox" width="1" height="1">
-                                                            <use xlink:href="#image0_1204_6" transform="scale(0.005)" />
-                                                        </pattern>
-                                                        <image id="image0_1204_6" width="200" height="200" />
-                                                    </defs>
-                                                </svg>
-                                                <!-- Add an img element for the image preview -->
-                                                <img id="BrandimagePreview" style="display:none; max-width:100%; height:auto;" alt="Image Preview" />
-                                            </div>
-
-                                            <div class="profile-wrapper">
-                                                <label class="custom-file-input-wrapper">
-                                                    <input type="file" class="custom-file-input" aria-label="Upload Photo" id="CreateBrandImg"  />
-                                                </label>
-                                                <p>PNG, JPEG or GIF (up to 1 MB)</p>
-                                            </div>
-                                        </div>
-                                    </div>
+                  <div class="row">
+                    <div class="col-lg-6">
+                        <div class="upload-profile">
+                            <div class="item">
+                                <div class="img-box">
+                                    <svg width="32" height="32" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                        <rect width="50" height="50" fill="url(#pattern0_1204_6)" fill-opacity="0.5" />
+                                        <defs>
+                                            <pattern id="pattern0_1204_6" patternContentUnits="objectBoundingBox" width="1" height="1">
+                                                <use xlink:href="#image0_1204_6" transform="scale(0.005)" />
+                                            </pattern>
+                                            <image id="image0_1204_6" width="200" height="200" />
+                                        </defs>
+                                    </svg>
+                                    <!-- Add an img element for the image preview -->
+                                    <img id="BrandimagePreview" style="display:none; max-width:100%; height:auto;" alt="Image Preview" />
                                 </div>
 
-                                <div class="col-lg-6"></div>
-
-                                <div class="col-lg-6">
-                                    <label class="data mt-2">
-                                        <input type="text" name="name" class="input-style" placeholder="Brand name" id="CreateBrandName" /><br />
+                                <div class="profile-wrapper">
+                                    <label class="custom-file-input-wrapper">
+                                        <input type="file" class="custom-file-input" aria-label="Upload Photo" id="CreateBrandImg"  />
                                     </label>
                                 </div>
-                                <div class="col-lg-6">
-                                    <label class="country">
-                                        <select name="status" class="input-style" id="BrandSelectStatus">
-                                            <option value="">Select Status</option>
-                                            <option value="Active">Active</option>
-                                            <option value="InActive">InActive</option>
-                                        </select><br />
-                                    </label>
-                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6"></div>
+
+                    <div class="col-lg-6">
+                        <label class="data mt-2">
+                            <input type="text" name="name" class="input-style" placeholder="Brand name" id="CreateBrandName" /><br />
+                        </label>
+                    </div>
+                    <div class="col-lg-6">
+                        <label class="country mt-2">
+                            <select name="status" class="input-style" id="BrandSelectStatus">
+                                <option value="">Select Status</option>
+                                <option value="Active">Active</option>
+                                <option value="InActive">InActive</option>
+                            </select><br />
+                        </label>
+                    </div>
+                  </div>
 
                             </div>
                             <div class="modal-footer">
@@ -226,7 +238,7 @@
                 <!-- Add Unit Modal -->
                 <div class="modal fade" id="addUnitModal" tabindex="-1" aria-labelledby="addUnitModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
-                        <div class="modal-content">
+                        <div class="modal-content modal-content-popap">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="addUnitModalLabel">Add New Unit</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -260,7 +272,7 @@
                 <!-- Add Supplier Modal -->
                 <div class="modal fade" id="addSupplierModal" tabindex="-1" aria-labelledby="addSupplierModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
-                        <div class="modal-content">
+                        <div class="modal-content modal-content-popap">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="addSupplierModalLabel">Add New Supplier</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -288,7 +300,6 @@
                                                     <label class="custom-file-input-wrapper">
                                                         <input type="file" class="custom-file-input" aria-label="Upload Photo" id="SuprilerImage"  />
                                                     </label>
-                                                    <p>PNG, JPEG or GIF (up to 1 MB)</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -296,7 +307,7 @@
 
                                     <div class="col-lg-6"></div>
 
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-6 mt-2">
                                         <label class="data">
                                             <input type="text" name="name" placeholder="Enter Name" id="SuprilerName"  /><br />
                                         </label>
@@ -351,7 +362,7 @@
 
 <script>
 
-    document.getElementById('BrandImg').addEventListener('change', function (event) {
+    document.getElementById('CreateBrandImg').addEventListener('change', function (event) {
         const imgFile = event.target.files[0];
         const BrandimgPreview = document.getElementById('BrandimagePreview');
 
@@ -368,124 +379,65 @@
         }
     });
 
+    async function BrandSave(event) {
+    event.preventDefault();
+    try {
+        let CreateBrandName = document.getElementById('CreateBrandName').value;
+        let BrandSelectStatus = document.getElementById('BrandSelectStatus').value;
+        let imgInput = document.getElementById('CreateBrandImg');
+        let imgFile = imgInput.files[0];
 
-
-        async function BrandSave(event) {
-        event.preventDefault();
-        try {
-
-
-            let CreateBrandName = document.getElementById('CreateBrandName').value;
-            let BrandSelectStatus = document.getElementById('BrandSelectStatus').value;
-
-            let imgInput = document.getElementById('CreateBrandImg');
-            let imgFile = imgInput.files[0];
-
-            // Validation
-            if (CreateBrandName.length === 0) {
-                errorToast("Brand Name Required !");
-                return; // Exit the function if validation fails
-            } else if (BrandSelectStatus.length === 0) {
-                errorToast("Status Required !");
-                return;
-            }
-            else if (!imgFile) {
-                errorToast("Photo is required!");
-            } else {
-                // Creating form data for submission
-                let formData = new FormData();
-                formData.append('name', CreateBrandName);
-                formData.append('status', BrandSelectStatus);
-                formData.append('img_url', imgFile); // Append image file
-
-                const config = {
-                    headers: {
-                        'content-type': 'multipart/form-data',
-                        ...HeaderToken().headers
-                    }
-                }
-
-                // Sending the form data to the server
-                let res = await axios.post("/api/create-brand", formData, config);
-
-                if (res.data['status'] === "success") {
-                    successToast(res.data['message']);
-                    document.getElementById("signup").reset();  // Reset form
-                    const modal = document.getElementById('addBrandModal');
-                    const modalInstance = bootstrap.Modal.getInstance(modal);
-                    modalInstance.hide(); // Close the modal smoothly // Close the modal smoothly
-                    await getList();  // Refresh the list after adding a new supplier
-                } else {
-                    errorToast(res.data['message']);
-                }
-            }
-        } catch (e) {
-            unauthorized(e.response.status);  // Handle authorization issues
+        // Validation
+        if (CreateBrandName.length === 0) {
+            errorToast("Brand Name Required !");
+            return; // Exit the function if validation fails
+        } else if (BrandSelectStatus.length === 0) {
+            errorToast("Status Required !");
+            return;
+        } else if (!imgFile) {
+            errorToast("Photo is required!");
+            return;
         }
+
+        // Creating form data for submission
+        let formData = new FormData();
+        formData.append('name', CreateBrandName);
+        formData.append('status', BrandSelectStatus);
+        formData.append('img_url', imgFile); // Append image file
+
+        const config = {
+            headers: {
+                'content-type': 'multipart/form-data',
+                ...HeaderToken().headers
+            }
+        }
+
+        // Sending the form data to the server
+        let res = await axios.post("/api/create-brand", formData, config);
+
+        if (res.data['status'] === "success") {
+            successToast(res.data['message']);
+            document.getElementById("signup").reset();  // Reset form
+            const modal = document.getElementById('addBrandModal');
+            const modalInstance = bootstrap.Modal.getInstance(modal);
+            modalInstance.hide(); // Close the modal smoothly
+
+            // Refresh the brand list dynamically
+            await refreshBrandList();
+        } else {
+            errorToast(res.data['message']);
+        }
+    } catch (e) {
+        unauthorized(e.response.status);  // Handle authorization issues
     }
+}
+
 
     </script>
 
 
 
 <script>
-
-
-// async function CategorySave(event) {
-//     event.preventDefault();  // Stop the form from submitting and reloading the page
-
-//     try {
-//         let CategoryName = document.getElementById('CategoryName').value;
-//         let CategorySelectStatus = document.getElementById('CategorySelectStatus').value;
-
-//         // Basic validation
-//         if (CategoryName.length === 0) {
-//             errorToast("Category Name Required!");
-//             return false;
-//         } else if (CategorySelectStatus === '' || CategorySelectStatus === 'Select Status') {
-//             errorToast("Status Required!");
-//             return false;
-//         }
-
-//         // Prepare form data
-//         let formData = new FormData();
-//         formData.append('category_name', CategoryName);
-//         formData.append('status', CategorySelectStatus);
-
-//         // Axios request configuration
-//         const config = {
-//             headers: {
-//                 'content-type': 'multipart/form-data',
-//                 ...HeaderToken().headers
-//             }
-//         };
-
-//         // Send the POST request to create a new category
-//         let res = await axios.post("/api/create-category", formData, config);
-
-//         if (res.data['status'] === "success") {
-//             successToast(res.data['message']);
-//             document.getElementById("signup").reset();
-
-//             // Close the modal after saving
-//             const modal = document.getElementById('addCategoryModal');
-//             const modalInstance = bootstrap.Modal.getInstance(modal);
-//             modalInstance.hide();
-
-//             // Refresh the category list dynamically without reloading
-//             await addNewCategoryToDropdown(res.data.newCategory); // Add new category to the dropdown without full reload
-
-//         } else {
-//             errorToast(res.data['message']);
-//         }
-//     } catch (e) {
-//         unauthorized(e.response.status);
-//     }
-//     return false;
-// }
-
-
-
 async function CategorySave(event) {
     event.preventDefault();  // Stop the form from submitting and reloading the page
 
@@ -538,96 +490,84 @@ async function CategorySave(event) {
     }
     return false;
 }
-
-
-
-
-
 </script>
 
 <script>
 
-    document.getElementById('SuprilerImage').addEventListener('change', function (event) {
-        const imgFile = event.target.files[0];
-        const SuprilerimgPreview = document.getElementById('SuprilerimagePreview');
+async function SupplierSave(event) {
+    event.preventDefault();
+    try {
+        let SuprilerName = document.getElementById('SuprilerName').value;
+        let SuprilerCompany = document.getElementById('SuprilerCompany').value;
+        let SuprilerMobile = document.getElementById('SuprilerMobile').value;
+        let SuprilerAddress = document.getElementById('SuprilerAddress').value;
+        let SuprilerEmail = document.getElementById('SuprilerEmail').value;
+        let SuplierSelectStatus = document.getElementById('SuplierSelectStatus').value;
+        let imgInput = document.getElementById('SuprilerImage');
+        let imgFile = imgInput.files[0];
 
-        if (imgFile) {
-            const reader = new FileReader();
-            reader.onload = function (e) {
-                SuprilerimgPreview.src = e.target.result; // Set the image source to the file data
-                SuprilerimgPreview.style.display = 'block'; // Show the image preview
+        // Validation
+        if (!SuprilerName) {
+            errorToast("Supplier Name is required!");
+            return; // Exit the function if validation fails
+        } else if (!SuprilerCompany) {
+            errorToast("Company Name is required!");
+            return;
+        } else if (!SuprilerMobile) {
+            errorToast("Mobile Number is required!");
+            return;
+        } else if (!SuprilerAddress) {
+            errorToast("Address is required!");
+            return;
+        } else if (!SuprilerEmail) {
+            errorToast("Email is required!");
+            return;
+        } else if (!SuplierSelectStatus) {
+            errorToast("Status is required!");
+            return;
+        } else if (!imgFile) {
+            errorToast("Photo is required!");
+            return;
+        }
+
+        // Creating form data for submission
+        let formData = new FormData();
+        formData.append('name', SuprilerName);
+        formData.append('company', SuprilerCompany);
+        formData.append('mobile', SuprilerMobile);
+        formData.append('address', SuprilerAddress);
+        formData.append('email', SuprilerEmail);
+        formData.append('status', SuplierSelectStatus);
+        formData.append('img_url', imgFile); // Append image file
+
+        const config = {
+            headers: {
+                'content-type': 'multipart/form-data',
+                ...HeaderToken().headers
             }
-            reader.readAsDataURL(imgFile); // Read the file as a data URL
+        };
+
+        // Sending the form data to the server
+        let res = await axios.post("/api/create-supriler", formData, config);
+
+        if (res.data['status'] === "success") {
+            successToast(res.data['message']);
+            document.getElementById("signup").reset();  // Reset form
+
+            // Close the modal after saving
+            const modal = document.getElementById('addSupplierModal');
+            const modalInstance = bootstrap.Modal.getInstance(modal);
+            modalInstance.hide();
+
+            // Refresh the supplier list dynamically without reloading
+            await refreshSupplierList(); // Call the function to refresh the supplier list
         } else {
-            SuprilerimgPreview.src = ""; // Clear the preview if no file is selected
-            SuprilerimgPreview.style.display = 'none'; // Hide the preview
+            errorToast(res.data['message']);
         }
-    });
-
-
-
-        async function SupplierSave(event) {
-        event.preventDefault();
-        try {
-            let SuprilerName = document.getElementById('SuprilerName').value;
-            let SuprilerCompany = document.getElementById('SuprilerCompany').value;
-            let SuprilerMobile = document.getElementById('SuprilerMobile').value;
-            let SuprilerAddress = document.getElementById('SuprilerAddress').value;
-            let SuprilerEmail = document.getElementById('SuprilerEmail').value;
-            let SuplierSelectStatus = document.getElementById('SuplierSelectStatus').value;
-            let imgInput = document.getElementById('SuprilerImage');
-            let imgFile = imgInput.files[0];
-
-            // Validation
-            if (!SuprilerName) {
-                errorToast("Supplier Name is required!");
-            } else if (!SuprilerCompany) {
-                errorToast("Company Name is required!");
-            } else if (!SuprilerMobile) {
-                errorToast("Mobile Number is required!");
-            } else if (!SuprilerAddress) {
-                errorToast("Address is required!");
-            } else if (!SuprilerEmail) {
-                errorToast("Email is required!");
-            } else if (!SuplierSelectStatus) {
-                errorToast("Status is required!");
-            } else if (!imgFile) {
-                errorToast("Photo is required!");
-            } else {
-                // Creating form data for submission
-                let formData = new FormData();
-                formData.append('name', SuprilerName);
-                formData.append('company', SuprilerCompany);
-                formData.append('mobile', SuprilerMobile);
-                formData.append('address', SuprilerAddress);
-                formData.append('email', SuprilerEmail);
-                formData.append('status', SuplierSelectStatus);
-                formData.append('img_url', imgFile); // Append image file
-
-                const config = {
-                    headers: {
-                        'content-type': 'multipart/form-data',
-                        ...HeaderToken().headers
-                    }
-                }
-
-                // Sending the form data to the server
-                let res = await axios.post("/api/create-supriler", formData, config);
-
-                if (res.data['status'] === "success") {
-                    successToast(res.data['message']);
-                    document.getElementById("signup").reset();  // Reset form
-                    const modal = document.getElementById('myModal');
-                closeModal(modal);  // Close the modal smoothly
-                    await getList();  // Refresh the list after adding a new supplier
-                } else {
-                    errorToast(res.data['message']);
-                }
-            }
-        } catch (e) {
-            unauthorized(e.response.status);  // Handle authorization issues
-        }
+    } catch (e) {
+        unauthorized(e.response.status);
     }
+}
 
     </script>
 
@@ -642,78 +582,86 @@ async function CategorySave(event) {
     }
 
     async function UnitSave(event) {
-        event.preventDefault();  // Stop form from submitting and reloading the page
-        try {
-            let UnitName = document.getElementById('UnitName').value;
-            let UnitSelectStatus = document.getElementById('UnitSelectStatus').value;
+    event.preventDefault();  // Stop form from submitting and reloading the page
+    try {
+        let UnitName = document.getElementById('UnitName').value;
+        let UnitSelectStatus = document.getElementById('UnitSelectStatus').value;
 
-            if (UnitName.length === 0) {
-                errorToast("Unit Name Required!");
-                return false;
-            } else if (UnitSelectStatus === '' || UnitSelectStatus === 'Select Status') {
-                errorToast("Status Required!");
-                return false;
-            } else {
-                let formData = new FormData();
-                formData.append('unit_name', UnitName);
-                formData.append('status', UnitSelectStatus);
-
-                const config = {
-                    headers: {
-                        'content-type': 'multipart/form-data',
-                        ...HeaderToken().headers
-                    }
-                };
-
-                let res = await axios.post("/api/create-unit", formData, config);
-
-                if (res.data['status'] === "success") {
-                    successToast(res.data['message']);
-                    document.getElementById("signup").reset();
-                    const modal = document.getElementById('myModal');
-            closeModal(modal);  // Close the modal smoothly
-
-                    await getList();  // Refresh the list after creation
-                } else {
-                    errorToast(res.data['message']);
-                }
-            }
-        } catch (e) {
-            unauthorized(e.response.status);
+        // Validate the inputs
+        if (UnitName.length === 0) {
+            errorToast("Unit Name Required!");
+            return false;
+        } else if (UnitSelectStatus === '' || UnitSelectStatus === 'Select Status') {
+            errorToast("Status Required!");
+            return false;
         }
-        return false;
+
+        // Create form data to submit
+        let formData = new FormData();
+        formData.append('unit_name', UnitName);
+        formData.append('status', UnitSelectStatus);
+
+        const config = {
+            headers: {
+                'content-type': 'multipart/form-data',
+                ...HeaderToken().headers
+            }
+        };
+
+        // Send the POST request to create a new unit
+        let res = await axios.post("/api/create-unit", formData, config);
+
+        if (res.data['status'] === "success") {
+            successToast(res.data['message']);
+            document.getElementById("signup").reset();  // Reset form
+
+            const modal = document.getElementById('addUnitModal');
+            const modalInstance = bootstrap.Modal.getInstance(modal);
+            modalInstance.hide();
+
+            // Refresh the unit list dynamically without reloading
+            await refreshUnitList();  // Call the function to refresh the list
+        } else {
+            errorToast(res.data['message']);
+        }
+    } catch (e) {
+        unauthorized(e.response.status);
     }
+    return false;
+}
+
 </script>
 
 
 
 
 <script>
-    ProductBrandShow();
-    // ProductCategoryShow();
+    refreshBrandList();
     refreshCategoryList();
-    ProductUnitShow();
-    ProductSuprilerShow();
-    async function ProductBrandShow() {
-        try {
-            let res = await axios.get("/api/brand-list", HeaderToken());
-            let Brand = res.data.BrandData;
-            let optionsHtmlBrand = Brand.map(Brand => `<option value="${Brand.id}">${Brand.name}</option>`).join(
-            '');
+    refreshUnitList();
+    refreshSupplierList();
 
-            // Add the "Select Brand" option as the first option
-            optionsHtmlBrand = `<option value="none" selected>Select Brand</option>` + optionsHtmlBrand;
 
-            $("#ProductBrand").html(optionsHtmlBrand);
+    async function refreshBrandList() {
+    try {
+        let res = await axios.get("/api/brand-list", HeaderToken());
+        let Brand = res.data.BrandData;
 
-        } catch (error) {
-            console.error("Error occurred while fetching Brand:", error);
-        }
+        // Build the options for the dropdown
+        let optionsHtmlBrand = Brand.map(Brand =>
+            `<option value="${Brand.id}">${Brand.name}</option>`
+        ).join('');
+
+        // Add the "Select Brand" option as the first option
+        optionsHtmlBrand = `<option value="none" selected>Select Brand</option>` + optionsHtmlBrand;
+
+        // Populate the dropdown with the updated brands
+        document.getElementById("ProductBrand").innerHTML = optionsHtmlBrand;
+
+    } catch (error) {
+        console.error("Error occurred while fetching Brand:", error);
     }
-
-
-
-
+}
 
 
     async function refreshCategoryList() {
@@ -745,86 +693,54 @@ async function CategorySave(event) {
     }
 }
 
+async function refreshUnitList() {
+    try {
+        // Make a GET request to fetch the unit list
+        let res = await axios.get("/api/unit-list", HeaderToken());
 
+        // Check if the response contains the necessary data
+        let Unit = res.data.UnitData;
 
+        // Generate the HTML options from the fetched unit data
+        let optionsHtmlUnit = Unit.map(unit =>
+            `<option value="${unit.id}">${unit.unit_name}</option>`
+        ).join('');
 
+        // Add the default "Select Unit" option at the top
+        optionsHtmlUnit = `<option value="none" selected>Select Unit</option>` + optionsHtmlUnit;
 
+        // Update the dropdown with the new options
+        document.getElementById("ProductUnit").innerHTML = optionsHtmlUnit;
 
-
-
-//                     async function ProductCategoryShow() {
-//     try {
-//         // Make an AJAX call to the API to fetch the category list
-//         let res = await axios.get("/api/category-list", HeaderToken());
-
-//         // Check if the response is successful
-//         if (res.data.status !== 'success') {
-//             console.error("Failed to fetch categories:", res.data.message);
-//             return;
-//         }
-
-//         let Category = res.data.CategoryData;
-
-//         // Build the options for the dropdown
-//         let optionsHtmlCategory = Category.map(category =>
-//             `<option value="${category.id}">${category.category_name}</option>`
-//         ).join('');
-
-//         // Add the default "Select Category" option at the top
-//         optionsHtmlCategory = `<option value="none" selected>Select Category</option>` + optionsHtmlCategory;
-
-//         // Populate the dropdown with the fetched categories
-//         document.getElementById("ProductCategory").innerHTML = optionsHtmlCategory;
-
-//     } catch (error) {
-//         console.error("Error fetching categories:", error);
-//     }
-// }
-
-
-
-
-
-
-
-
-
-
-    async function ProductUnitShow() {
-        try {
-            let res = await axios.get("/api/unit-list", HeaderToken());
-            let Unit = res.data.UnitData;
-            let optionsHtmlUnit = Unit.map(Unit => `<option value="${Unit.id}">${Unit.unit_name}</option>`).join(
-            '');
-
-            // Add the "Select Unit" option as the first option
-            optionsHtmlUnit = `<option value="none" selected>Select Unit</option>` + optionsHtmlUnit;
-
-            $("#ProductUnit").html(optionsHtmlUnit);
-
-        } catch (error) {
-            console.error("Error occurred while fetching sessions:", error);
-        }
+    } catch (error) {
+        console.error("Error occurred while fetching units:", error);
     }
+}
 
 
+async function refreshSupplierList() {
+    try {
+        // Make a GET request to fetch the supplier list
+        let res = await axios.get("/api/supriler-list", HeaderToken());
 
-    async function ProductSuprilerShow() {
-        try {
-            let res = await axios.get("/api/supriler-list", HeaderToken());
-            let Supriler = res.data.SuprilerData;
-            let optionsHtmlSupriler = Supriler.map(Supriler =>
-                `<option value="${Supriler.id}">${Supriler.name}</option>`).join('');
+        // Check if the response contains the necessary data
+        let Supriler = res.data.SuprilerData;
 
-            // Add the "Select Supriler" option as the first option
-            optionsHtmlSupriler = `<option value="none" selected>Select Supriler</option>` + optionsHtmlSupriler;
+        // Generate the HTML for the supplier options
+        let optionsHtmlSupriler = Supriler.map(supplier =>
+            `<option value="${supplier.id}">${supplier.name}</option>`
+        ).join('');
 
-            $("#ProductSupplier").html(optionsHtmlSupriler);
+        // Add the default "Select Supplier" option at the top
+        optionsHtmlSupriler = `<option value="none" selected>Select Supplier</option>` + optionsHtmlSupriler;
 
-        } catch (error) {
-            console.error("Error occurred while fetching sessions:", error);
-        }
+        // Update the dropdown with the new options
+        document.getElementById("ProductSupplier").innerHTML = optionsHtmlSupriler;
+
+    } catch (error) {
+        console.error("Error occurred while fetching suppliers:", error);
     }
+}
 
 
 
