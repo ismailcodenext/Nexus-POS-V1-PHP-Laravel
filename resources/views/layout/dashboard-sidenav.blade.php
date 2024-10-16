@@ -1023,6 +1023,15 @@
               </svg>
               <span class="menu-item" data-key="t-horizontal">Setting</span>
             </a>
+            <ul class="sub-menu" aria-expanded="false">
+                <li>
+                  <a href="{{url('admin-dashboard-warehouse')}}">
+                    <i class="fa-solid fa-circle"></i
+                    ><span data-key="t-calendar">Warehouse List</span>
+                  </a>
+
+                </li>
+              </ul>
           </li>
 
 
@@ -1094,6 +1103,7 @@
         }
     }
     </script>
+
 
 
 
