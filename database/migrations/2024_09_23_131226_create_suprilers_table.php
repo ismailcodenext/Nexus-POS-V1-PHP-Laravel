@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('mobile');
             $table->string('address');
             $table->string('email');
-            $table->string('img_url');
+            $table->string('img_url')->nullable();
             $table->string('status');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')

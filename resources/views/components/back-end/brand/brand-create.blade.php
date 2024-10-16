@@ -103,9 +103,7 @@ document.getElementById('BrandImg').addEventListener('change', function (event) 
             errorToast("Status Required !");
             return;
         }
-        else if (!imgFile) {
-            errorToast("Photo is required!");
-        } else {
+        else {
             // Creating form data for submission
             let formData = new FormData();
             formData.append('name', BrandName);

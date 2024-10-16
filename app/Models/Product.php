@@ -13,6 +13,7 @@ class Product extends Model
         'img_url',
         'name',
         'price',
+        'quantity',
         'sell_price',
         'date',
         'status',
@@ -20,7 +21,6 @@ class Product extends Model
         'brand_id',
         'category_id',
         'unit_id',
-        'suppliers_id',
         'user_id'
     ];
 

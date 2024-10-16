@@ -29,14 +29,6 @@
                 </select>
             </div>
 
-            <!-- Supplier Select -->
-            <div class="col-md-6">
-                <label class="form-label">Supplier<span class="text-danger">*</span></label>
-                <select class="form-select" class="input-style" id="UpdateProductSupplier">
-                    <option value="none">Select Supplier</option>
-                </select>
-            </div>
-
 
             <div class="col-md-12">
                 <div class="d-flex align-items-center mt-3">
@@ -56,39 +48,40 @@
             <!-- Name Input -->
             <div class="col-md-6">
                 <label class="form-label">Name<span class="text-danger">*</span></label>
-                <input type="text" class="input-style" name="name" id="UpdateProductName" required />
+                <input type="text" class="input-style" name="name" id="UpdateProductName"  />
             </div>
 
                         <!-- Code Input -->
                         <div class="col-md-6">
                             <label class="form-label">Code<span class="text-danger">*</span></label>
-                            <input type="text" name="code" class="input-style" id="UpdateProductCode" required />
+                            <input type="text" name="code" class="input-style" id="UpdateProductCode"  />
                         </div>
 
 
             <!-- Price Input -->
             <div class="col-md-6">
                 <label class="form-label">Price<span class="text-danger">*</span></label>
-                <input type="text" name="price" class="input-style" id="UpdateProductPrice" required />
+                <input type="text" name="price" class="input-style" id="UpdateProductPrice"  />
+                <input type="hidden" class="input-style" name="quantity" value="0" class="input-style" id="UpdateProductQuantity" /><br />
             </div>
 
             <!-- Sell Price Input -->
             <div class="col-md-6">
                 <label class="form-label">Sell Price<span class="text-danger">*</span></label>
-                <input type="text" name="sell_price" class="input-style" id="UpdateProductSell" required />
+                <input type="text" name="sell_price" class="input-style" id="UpdateProductSell"  />
             </div>
 
             <!-- Date Input -->
             <div class="col-md-6">
                 <label class="form-label">Date<span class="text-danger">*</span></label>
-                <input type="date" name="date" class="input-style" id="UpdateProductDate" required />
+                <input type="date" name="date" class="input-style" id="UpdateProductDate"  />
             </div>
 
 
             <!-- Status Dropdown -->
             <div class="col-lg-6">
                 <label for="UpdateUnitStatus">Status<span class="text-danger">*</span></label>
-                <select id="UpdateUnitStatus" class="form-control" required>
+                <select id="UpdateUnitStatus" class="form-control" >
                     <option value="Active">Active</option>
                     <option value="InActive">Inactive</option>
                 </select>
@@ -106,7 +99,6 @@
     ProductBrandShow();
     ProductCategoryShow();
     ProductUnitShow();
-    ProductSuprilerShow();
 
     async function ProductBrandShow() {
         try {
@@ -138,15 +130,6 @@
         }
     }
 
-    async function ProductSuprilerShow() {
-        try {
-            let res = await axios.get("/api/supriler-list", HeaderToken());
-            let optionsHtml = res.data.SuprilerData.map(Supriler => `<option value="${Supriler.id}">${Supriler.name}</option>`).join('');
-            $("#UpdateProductSupplier").html(`<option value="none" selected>Select Supplier</option>` + optionsHtml);
-        } catch (error) {
-            console.error("Error fetching suppliers:", error);
-        }
-    }
 
 
 
@@ -181,9 +164,9 @@
             document.getElementById('UpdateProductBrand').value = data.brand_id;
             document.getElementById('UpdateProductCategory').value = data.category_id;
             document.getElementById('UpdateProductUnit').value = data.unit_id;
-            document.getElementById('UpdateProductSupplier').value = data.suppliers_id;
             document.getElementById('UpdateProductName').value = data.name;
             document.getElementById('UpdateProductPrice').value = data.price;
+            document.getElementById('UpdateProductQuantity').value = data.quantity;
             document.getElementById('UpdateProductSell').value = data.sell_price;
             document.getElementById('UpdateProductDate').value = data.date;
             document.getElementById('UpdateProductCode').value = data.code;
@@ -204,9 +187,9 @@
             formData.append('brand_id', $('#UpdateProductBrand').val());
             formData.append('category_id', $('#UpdateProductCategory').val());
             formData.append('unit_id', $('#UpdateProductUnit').val());
-            formData.append('suppliers_id', $('#UpdateProductSupplier').val());
             formData.append('name', $('#UpdateProductName').val());
             formData.append('price', $('#UpdateProductPrice').val());
+            formData.append('quantity', $('#UpdateProductQuantity').val());
             formData.append('sell_price', $('#UpdateProductSell').val());
             formData.append('date', $('#UpdateProductDate').val());
             formData.append('code', $('#UpdateProductCode').val());

@@ -46,6 +46,7 @@ class ProductController extends Controller
                 'img_url' => $img_url,
                 'name' => $request->input('name'),
                 'price' => $request->input('price'),
+                'quantity' => $request->input('quantity'),
                 'sell_price' => $request->input('sell_price'),
                 'date' => $request->input('date'),
                 'status' => $request->input('status'),
@@ -88,6 +89,7 @@ class ProductController extends Controller
             // Update the supplier's fields
             $ProductData_Update->name = $request->input('name');
             $ProductData_Update->price = $request->input('price');
+            $ProductData_Update->quantity = $request->input('quantity');
             $ProductData_Update->sell_price = $request->input('sell_price');
             $ProductData_Update->date = $request->input('date');
             $ProductData_Update->status = $request->input('status');
@@ -95,7 +97,6 @@ class ProductController extends Controller
             $ProductData_Update->brand_id = $request->input('brand_id');
             $ProductData_Update->category_id = $request->input('category_id');
             $ProductData_Update->unit_id = $request->input('unit_id');
-            $ProductData_Update->suppliers_id = $request->input('suppliers_id');
 
             if ($request->hasFile('img')) {
                 $img = $request->file('img');
