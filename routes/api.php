@@ -7,6 +7,7 @@ use App\Http\Controllers\BrandController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SuprilerController;
+use App\Http\Controllers\PurchasesController;
 use App\Http\Controllers\WarehouseController;
 
 // Dashboard All API Route Start
@@ -79,6 +80,20 @@ Route::post("/create-warehouse", [WarehouseController::class, 'WarehouseCreate']
 Route::post("/warehouse-by-id", [WarehouseController::class, 'WarehouseByID'])->middleware('auth:sanctum');
 Route::post("/update-warehouse", [WarehouseController::class, 'WarehouseUpdate'])->middleware('auth:sanctum');
 Route::post("/delete-warehouse", [WarehouseController::class, 'WarehouseDelete'])->middleware('auth:sanctum');
+
+// Warehouse Api Route End
+
+
+
+
+
+// Purchases Api Route Start
+
+Route::get("/purchases-list", [PurchasesController::class, 'PurchasesList'])->middleware('auth:sanctum');
+Route::post("/create-purchases", [PurchasesController::class, 'PurchasesCreate'])->middleware('auth:sanctum');
+Route::post("/purchases-by-id", [PurchasesController::class, 'PurchasesByID'])->middleware('auth:sanctum');
+Route::post("/update-purchases", [PurchasesController::class, 'PurchasesUpdate'])->middleware('auth:sanctum');
+Route::post("/delete-purchases", [PurchasesController::class, 'PurchasesDelete'])->middleware('auth:sanctum');
 
 // Warehouse Api Route End
 
