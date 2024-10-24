@@ -102,51 +102,395 @@
                         }
                     </style>
 
+{{--
+<div class="container">
+    <div class="mb-3">
+        <label for="productInput" class="form-label">Select Product</label>
+        <div class="input-group">
+            <button class="btn btn-outline-secondary" type="button" id="searchButton">
+                <i class="fas fa-barcode"></i>
+            </button>
+            <input type="text" id="productInputData" class="form-control" placeholder="Please type product code or name..." />
+        </div>
+        <!-- Dropdown list to show matching products -->
+        <ul id="productDropdown" class="list-group" style="position: absolute; z-index: 1000;"></ul>
+    </div>
 
-                    <div class="container">
-                        <div class="mb-3">
-                            <label for="productInput" class="form-label">Select Product</label>
-                            <div class="input-group">
-                                <button class="btn btn-outline-secondary" type="button" id="searchButton">
-                                    <i class="fas fa-barcode"></i>
-                                </button>
-                                <input type="text" id="productInputData" class="form-control"
-                                    placeholder="Please type product code or name..." />
-                            </div>
-                            <!-- Dropdown list to show matching products -->
-                            <ul id="productDropdown" class="list-group" style="position: absolute; z-index: 1000;"></ul>
-                        </div>
+    <table class="table table-bordered mt-4">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Code</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>SubTotal</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="orderTableBody">
+            <!-- Dynamic Rows Will Be Added Here -->
+        </tbody>
+        <tfoot>
+            <tr>
+                <th colspan="2">Total</th>
+                <td></td>
+                <td id="totalQuantity">0</td>
+                <td id="totalSubTotal">0.00</td>
+                <td></td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
 
-                        <table class="table table-bordered mt-4">
-                            <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Code</th>
-                                    <th>Quantity</th>
-                                    <th>Price</th>
-                                    <th>due</th>
-                                    <th>paid</th>
-                                    <th>Paid Status</th>
-                                    <th>SubTotal</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody id="orderTableBody">
-                                <!-- Dynamic Rows Will Be Added Here -->
-                            </tbody>
-                            <tfoot>
-                                <tr>
-                                    <th colspan="2">Total</th>
-                                    <td id="totalQuantity">0</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td id="totalSubTotal">0.00</td>
-                                    <td></td>
-                                </tr>
-                            </tfoot>
-                        </table>
-                    </div>
+
+
+
+
+<script>
+    let allProducts = []; // To store all product data
+
+ // Fetch and store all products when the page loads
+ ProductDataShow();
+
+ async function ProductDataShow() {
+     try {
+         let res = await axios.get("/api/product-list", HeaderToken());
+         allProducts = res.data.ProductData;
+     } catch (error) {
+         console.error("Error occurred while fetching products:", error);
+     }
+ }
+
+ // Search product by name or code
+ document.getElementById('productInputData').addEventListener('input', function () {
+     const searchValue = this.value.toLowerCase();
+     const filteredProducts = allProducts.filter(product =>
+         product.name.toLowerCase().includes(searchValue) || product.code.toLowerCase().includes(searchValue)
+     );
+
+     // Populate dropdown with filtered products
+     const productDropdown = document.getElementById('productDropdown');
+     productDropdown.innerHTML = '';
+     filteredProducts.forEach(product => {
+         const productItem = document.createElement('li');
+         productItem.classList.add('list-group-item', 'list-group-item-action');
+         productItem.innerText = `${product.name} (Code: ${product.code})`;
+         productItem.dataset.productId = product.id;
+
+         // Event listener for when the product is clicked
+         productItem.addEventListener('click', function () {
+             addProductToOrder(product); // Pass the selected product object directly
+             productDropdown.innerHTML = ''; // Clear dropdown after selecting
+             document.getElementById('productInputData').value = ''; // Clear the input field
+         });
+
+         productDropdown.appendChild(productItem);
+     });
+ });
+
+ // Function to add product details to the order table
+ function addProductToOrder(product) {
+     // Check if product exists
+     if (!product) {
+         alert('Product not found');
+         return;
+     }
+
+     // Create a new row for the order table
+     const orderTableBody = document.getElementById('orderTableBody');
+     const newRow = orderTableBody.insertRow();
+
+     newRow.innerHTML = `
+         <td>${product.name}</td>
+         <td>${product.code}</td>
+         <td>
+             <input type="number" value="1" min="1" class="form-control quantity" />
+         </td>
+         <td>${product.price}</td>
+         <td class="subtotal">${product.price}</td>
+         <td>
+             <button class="btn btn-danger" onclick="removeRow(this)">Remove</button>
+         </td>
+     `;
+
+     // Add event listeners to update totals when quantity or discount changes
+     newRow.querySelector('.quantity').addEventListener('input', updateTotals);
+
+     // Update totals
+     updateTotals();
+ }
+
+ // Function to update total quantities and subtotals
+ function updateTotals() {
+     let totalQuantity = 0;
+     let totalSubTotal = 0;
+
+     const rows = document.querySelectorAll('#orderTableBody tr');
+     rows.forEach(row => {
+         const quantity = row.querySelector('.quantity').value;
+         const price = parseFloat(row.cells[3].innerText); // Price column
+
+         // Calculate subtotal and update it in the row
+         const subtotal = (quantity * price);
+         row.querySelector('.subtotal').innerText = subtotal.toFixed(2);
+
+         // Update totals
+         totalQuantity += parseInt(quantity);
+         totalSubTotal += parseFloat(subtotal);
+     });
+
+     document.getElementById('totalQuantity').innerText = totalQuantity;
+     document.getElementById('totalSubTotal').innerText = totalSubTotal.toFixed(2);
+ }
+
+ // Function to remove a row
+ function removeRow(button) {
+     const row = button.parentElement.parentElement;
+     row.parentElement.removeChild(row);
+     updateTotals(); // Update totals after removing the row
+ }
+
+ // Event listener for the search button (Optional if you want to keep manual search functionality)
+ document.getElementById('searchButton').addEventListener('click', function () {
+     const searchValue = document.getElementById('productInputData').value;
+     const product = allProducts.find(product => product.code === searchValue || product.name === searchValue);
+
+     if (product) {
+         addProductToOrder(product);
+     } else {
+         alert('Product not found');
+     }
+ });
+
+ </script> --}}
+
+
+
+
+ <div class="container">
+    <div class="mb-3">
+        <label for="productInput" class="form-label">Select Product</label>
+        <div class="input-group">
+            <button class="btn btn-outline-secondary" type="button" id="searchButton">
+                <i class="fas fa-barcode"></i>
+            </button>
+            <input type="text" id="productInputData" class="form-control" placeholder="Please type product code or name..." />
+        </div>
+        <!-- Dropdown list to show matching products -->
+        <ul id="productDropdown" class="list-group" style="position: absolute; z-index: 1000;"></ul>
+    </div>
+
+    <table class="table table-bordered mt-4">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Code</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>SubTotal</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="orderTableBody">
+            <!-- Dynamic Rows Will Be Added Here -->
+        </tbody>
+        <tfoot>
+            <tr>
+                <th colspan="3">Total</th>
+                <td id="totalQuantity">0</td>
+                <td id="totalSubTotal">0.00</td>
+                <td></td>
+            </tr>
+            <!-- Additional Fields at the Bottom of Table -->
+            <tr>
+                <th colspan="5">Grand Subtotal</th>
+                <td colspan="2"><input type="text" id="grandSubtotal" class="form-control" readonly></td>
+            </tr>
+            <tr>
+                <th colspan="5">Discount</th>
+                <td>
+                    <input type="number" id="overallDiscount" value="0" min="0" class="form-control" />
+                </td>
+            </tr>
+            <tr>
+                <th colspan="5">Payment Method Select</th>
+                <td>
+                    <select id="paymentMethod" class="form-select payment-method">
+                        <option value="" selected>Payment Method</option>
+                        <option value="Cash">Cash</option>
+                        <option value="Bkash">Bkash</option>
+                        <option value="Nagad">Nagad</option>
+                        <option value="Bank">Bank</option>
+                    </select>
+                    <!-- Input field for transaction details -->
+                    <input type="text" id="paymentDetails" class="form-control" style="display: none;" placeholder="Enter transaction details" />
+                </td>
+
+
+                <!-- Input field that will be shown when selecting Bkash, Nagad, or Bank -->
+
+
+
+            </tr>
+            <tr>
+                <th colspan="5">Paid</th>
+                <td><input type="text" id="paidAmount" class="form-control"></td>
+            </tr>
+            <tr>
+                <th colspan="5">Due</th>
+                <td><input type="text" id="dueAmount" class="form-control" readonly></td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+
+<script>
+ // Get references to the select dropdown and the input field
+ const paymentMethodSelect = document.getElementById('paymentMethod');
+    const paymentDetailsInput = document.getElementById('paymentDetails');
+
+    // Add event listener to the payment method select dropdown
+    paymentMethodSelect.addEventListener('change', function() {
+        const selectedMethod = this.value;
+
+        if (selectedMethod === 'Bkash' || selectedMethod === 'Nagad' || selectedMethod === 'Bank') {
+            // Show the input field for Bkash, Nagad, or Bank
+            paymentDetailsInput.style.display = 'block';
+            paymentDetailsInput.placeholder = `Enter ${selectedMethod} transaction details`;
+        } else {
+            // Hide the input field when Cash is selected or if no option is selected
+            paymentDetailsInput.style.display = 'none';
+            paymentDetailsInput.value = ''; // Clear the input value when hidden
+        }
+    });
+
+    let allProducts = [];
+
+    // Fetch and store all products when the page loads
+    ProductDataShow();
+
+    async function ProductDataShow() {
+        try {
+            let res = await axios.get("/api/product-list", HeaderToken());
+            allProducts = res.data.ProductData;
+        } catch (error) {
+            console.error("Error occurred while fetching products:", error);
+        }
+    }
+
+    // Search product by name or code
+    document.getElementById('productInputData').addEventListener('input', function () {
+        const searchValue = this.value.toLowerCase();
+        const filteredProducts = allProducts.filter(product =>
+            product.name.toLowerCase().includes(searchValue) || product.code.toLowerCase().includes(searchValue)
+        );
+
+        const productDropdown = document.getElementById('productDropdown');
+        productDropdown.innerHTML = '';
+        filteredProducts.forEach(product => {
+            const productItem = document.createElement('li');
+            productItem.classList.add('list-group-item', 'list-group-item-action');
+            productItem.innerText = `${product.name} (Code: ${product.code})`;
+            productItem.dataset.productId = product.id;
+
+            productItem.addEventListener('click', function () {
+                addProductToOrder(product);
+                productDropdown.innerHTML = '';
+                document.getElementById('productInputData').value = '';
+            });
+
+            productDropdown.appendChild(productItem);
+        });
+    });
+
+    function addProductToOrder(product) {
+        if (!product) {
+            alert('Product not found');
+            return;
+        }
+
+        const orderTableBody = document.getElementById('orderTableBody');
+        const newRow = orderTableBody.insertRow();
+
+        newRow.innerHTML = `
+            <td>${product.name}</td>
+            <td>${product.code}</td>
+            <td>
+                <input type="number" value="1" min="1" class="form-control quantity" />
+            </td>
+            <td>${product.price}</td>
+            <td class="subtotal">${product.price}</td>
+            <td>
+                <button class="btn btn-danger" onclick="removeRow(this)">Remove</button>
+            </td>
+        `;
+
+        newRow.querySelector('.quantity').addEventListener('input', updateTotals);
+
+        updateTotals();
+    }
+
+    function updateTotals() {
+        let totalQuantity = 0;
+        let totalSubTotal = 0;
+
+        const rows = document.querySelectorAll('#orderTableBody tr');
+        rows.forEach(row => {
+            const quantity = row.querySelector('.quantity').value;
+            const price = parseFloat(row.cells[3].innerText);
+
+            const subtotal = quantity * price;
+            row.querySelector('.subtotal').innerText = subtotal.toFixed(2);
+
+            totalQuantity += parseInt(quantity);
+            totalSubTotal += parseFloat(subtotal);
+        });
+
+        document.getElementById('totalQuantity').innerText = totalQuantity;
+        document.getElementById('totalSubTotal').innerText = totalSubTotal.toFixed(2);
+
+        const overallDiscount = parseFloat(document.getElementById('overallDiscount').value) || 0;
+        const grandSubtotal = totalSubTotal - overallDiscount;
+
+        document.getElementById('grandSubtotal').value = grandSubtotal.toFixed(2);
+
+        calculateDue();
+    }
+
+    document.getElementById('paidAmount').addEventListener('input', calculateDue);
+    document.getElementById('overallDiscount').addEventListener('input', updateTotals);
+
+    function calculateDue() {
+        const grandSubtotal = parseFloat(document.getElementById('grandSubtotal').value) || 0;
+        const paidAmount = parseFloat(document.getElementById('paidAmount').value) || 0;
+        const dueAmount = grandSubtotal - paidAmount;
+
+        document.getElementById('dueAmount').value = dueAmount.toFixed(2);
+    }
+
+    function removeRow(button) {
+        const row = button.parentElement.parentElement;
+        row.parentElement.removeChild(row);
+        updateTotals();
+    }
+
+    document.getElementById('searchButton').addEventListener('click', function () {
+        const searchValue = document.getElementById('productInputData').value;
+        const product = allProducts.find(product => product.code === searchValue || product.name === searchValue);
+
+        if (product) {
+            addProductToOrder(product);
+        } else {
+            alert('Product not found');
+        }
+    });
+</script>
+
+
+
+
+
+
                     <!-- Submit Button -->
                     <div class="col-lg-6">
                         <div class="upload-profile">
@@ -317,279 +661,6 @@
     </div>
 </section>
 <!-- Finance- Pop Up Modal End -->
-
-
-
-
-{{--
-<script>
-    let allProducts = []; // To store all product data
-
-// Fetch and store all products when the page loads
-ProductDataShow();
-
-async function ProductDataShow() {
-    try {
-        let res = await axios.get("/api/product-list", HeaderToken());
-        allProducts = res.data.ProductData;
-    } catch (error) {
-        console.error("Error occurred while fetching products:", error);
-    }
-}
-
-// Search product by name or code
-document.getElementById('productInputData').addEventListener('input', function () {
-    const searchValue = this.value.toLowerCase();
-    const filteredProducts = allProducts.filter(product =>
-        product.name.toLowerCase().includes(searchValue) || product.code.toLowerCase().includes(searchValue)
-    );
-
-    // Populate dropdown with filtered products
-    const productDropdown = document.getElementById('productDropdown');
-    productDropdown.innerHTML = '';
-    filteredProducts.forEach(product => {
-        const productItem = document.createElement('li');
-        productItem.classList.add('list-group-item', 'list-group-item-action');
-        productItem.innerText = `${product.name} (Code: ${product.code})`;
-        productItem.dataset.productId = product.id;
-
-        // Event listener for when the product is clicked
-        productItem.addEventListener('click', function () {
-            addProductToOrder(product); // Pass the selected product object directly
-            productDropdown.innerHTML = ''; // Clear dropdown after selecting
-            document.getElementById('productInputData').value = ''; // Clear the input field
-        });
-
-        productDropdown.appendChild(productItem);
-    });
-});
-
-// Function to add product details to the order table
-function addProductToOrder(product) {
-    // Check if product exists
-    if (!product) {
-        alert('Product not found');
-        return;
-    }
-
-    // Create a new row for the order table
-    const orderTableBody = document.getElementById('orderTableBody');
-    const newRow = orderTableBody.insertRow();
-
-    newRow.innerHTML = `
-        <td>${product.name}</td>
-        <td>${product.code}</td>
-        <td>
-            <input type="number" value="1" min="1" class="form-control quantity" />
-        </td>
-        <td>${product.price}</td>
-        <td><input type="number" value="0" min="0" class="form-control due" /></td>
-        <td>
-            <select class="form-select" style="width:150px;" aria-label="Default select example">
-                <option selected>Paid Status</option>
-                <option value="Cash">Cash</option>
-                <option value="Bkash">Bkash</option>
-                <option value="Nagad">Nagad</option>
-            </select>
-        </td>
-        <td class="subtotal">${product.price}</td>
-        <td>
-            <button class="btn btn-danger" onclick="removeRow(this)">Remove</button>
-        </td>
-    `;
-
-    // Add event listeners to update totals when quantity or due changes
-    newRow.querySelector('.quantity').addEventListener('input', updateTotals);
-    newRow.querySelector('.due').addEventListener('input', updateTotals);
-
-    // Update totals
-    updateTotals();
-}
-
-// Function to update total quantities and subtotals
-function updateTotals() {
-    let totalQuantity = 0;
-    let totalSubTotal = 0;
-
-    const rows = document.querySelectorAll('#orderTableBody tr');
-    rows.forEach(row => {
-        const quantity = parseFloat(row.querySelector('.quantity').value);
-        const price = parseFloat(row.cells[3].innerText); // Price column
-        const due = parseFloat(row.querySelector('.due').value) || 0;
-
-        // Calculate subtotal (subtract due) and update it in the row
-        const subtotal = (quantity * price) - due;
-        row.querySelector('.subtotal').innerText = subtotal.toFixed(2);
-
-        // Update totals
-        totalQuantity += quantity;
-        totalSubTotal += subtotal;
-    });
-
-    // Update total quantity and subtotal in the table footer
-    document.getElementById('totalQuantity').innerText = totalQuantity;
-    document.getElementById('totalSubTotal').innerText = totalSubTotal.toFixed(2);
-}
-
-// Function to remove a row
-function removeRow(button) {
-    const row = button.parentElement.parentElement;
-    row.parentElement.removeChild(row);
-    updateTotals(); // Update totals after removing the row
-}
-
-// Event listener for the search button (Optional if you want to keep manual search functionality)
-document.getElementById('searchButton').addEventListener('click', function () {
-    const searchValue = document.getElementById('productInputData').value;
-    const product = allProducts.find(product => product.code === searchValue || product.name === searchValue);
-
-    if (product) {
-        addProductToOrder(product);
-    } else {
-        alert('Product not found');
-    }
-});
-
-</script>
- --}}
-
-
-
-
-
-<script>
-    let allProducts = []; // To store all product data
-
-    // Fetch and store all products when the page loads
-    ProductDataShow();
-
-    async function ProductDataShow() {
-        try {
-            let res = await axios.get("/api/product-list", HeaderToken());
-            allProducts = res.data.ProductData;
-        } catch (error) {
-            console.error("Error occurred while fetching products:", error);
-        }
-    }
-
-    // Search product by name or code
-    document.getElementById('productInputData').addEventListener('input', function() {
-        const searchValue = this.value.toLowerCase();
-        const filteredProducts = allProducts.filter(product =>
-            product.name.toLowerCase().includes(searchValue) || product.code.toLowerCase().includes(
-                searchValue)
-        );
-
-        // Populate dropdown with filtered products
-        const productDropdown = document.getElementById('productDropdown');
-        productDropdown.innerHTML = '';
-        filteredProducts.forEach(product => {
-            const productItem = document.createElement('li');
-            productItem.classList.add('list-group-item', 'list-group-item-action');
-            productItem.innerText = `${product.name} (Code: ${product.code})`;
-            productItem.dataset.productId = product.id;
-
-            // Event listener for when the product is clicked
-            productItem.addEventListener('click', function() {
-                addProductToOrder(product); // Pass the selected product object directly
-                productDropdown.innerHTML = ''; // Clear dropdown after selecting
-                document.getElementById('productInputData').value = ''; // Clear the input field
-            });
-
-            productDropdown.appendChild(productItem);
-        });
-    });
-
-    // Function to add product details to the order table
-    function addProductToOrder(product) {
-        // Check if product exists
-        if (!product) {
-            alert('Product not found');
-            return;
-        }
-
-        // Create a new row for the order table
-        const orderTableBody = document.getElementById('orderTableBody');
-        const newRow = orderTableBody.insertRow();
-
-        newRow.innerHTML = `
-<td>${product.name}</td>
-<td>${product.code}</td>
-<td>
-<input type="number" value="1" min="1" class="form-control quantity" />
-</td>
-<td>${product.price}</td>
-<td><input type="number" value="0" min="0" class="form-control discount" /></td>
-<td><input type="number" value="0" min="0" class="form-control paid" /></td>
-<td>
-<select class="form-select" style="width:150px;" aria-label="Default select example">
-<option selected>Paid Status</option>
-<option value="Cash">Cash</option>
-<option value="Bkash">Bkash</option>
-<option value="Nagad">Nagad</option>
-</select>
-
-</td>
-<td class="subtotal">${product.price}</td>
-<td>
-<button class="btn btn-danger" onclick="removeRow(this)">Remove</button>
-</td>
-`;
-
-        // Add event listeners to update totals when quantity or discount changes
-        newRow.querySelector('.quantity').addEventListener('input', updateTotals);
-        newRow.querySelector('.discount').addEventListener('input', updateTotals);
-
-        // Update totals
-        updateTotals();
-    }
-
-    // Function to update total quantities and subtotals
-    function updateTotals() {
-        let totalQuantity = 0;
-        let totalSubTotal = 0;
-
-        const rows = document.querySelectorAll('#orderTableBody tr');
-        rows.forEach(row => {
-            const quantity = row.querySelector('.quantity').value;
-            const price = parseFloat(row.cells[3].innerText); // Price column
-            const discount = parseFloat(row.querySelector('.discount').value) || 0;
-
-            // Calculate subtotal and update it in the row
-            const subtotal = (quantity * price) - discount;
-            row.querySelector('.subtotal').innerText = subtotal.toFixed(2);
-
-            // Update totals
-            totalQuantity += parseInt(quantity);
-            totalSubTotal += parseFloat(subtotal);
-        });
-
-        document.getElementById('totalQuantity').innerText = totalQuantity;
-        document.getElementById('totalSubTotal').innerText = totalSubTotal.toFixed(2);
-    }
-
-    // Function to remove a row
-    function removeRow(button) {
-        const row = button.parentElement.parentElement;
-        row.parentElement.removeChild(row);
-        updateTotals(); // Update totals after removing the row
-    }
-
-    // Event listener for the search button (Optional if you want to keep manual search functionality)
-    document.getElementById('searchButton').addEventListener('click', function() {
-        const searchValue = document.getElementById('productInputData').value;
-        const product = allProducts.find(product => product.code === searchValue || product.name ===
-            searchValue);
-
-        if (product) {
-            addProductToOrder(product);
-        } else {
-            alert('Product not found');
-        }
-    });
-</script>
-
-
 
 
 

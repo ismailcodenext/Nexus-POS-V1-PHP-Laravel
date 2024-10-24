@@ -13,11 +13,17 @@ return new class extends Migration
     {
         Schema::create('purchases', function (Blueprint $table) {
             $table->id();
-            $table->date('date');
+            $table->string('purchases_id');
             $table->string('referance_no');
+            $table->date('date');
+            $table->string('subtotal');
+            $table->string('discount');
+            $table->string('grand_subtotal');
             $table->string('paid');
             $table->string('due');
             $table->string('quantity');
+            $table->string('payment_method');
+            $table->string('paid_status');
             $table->string('status');
             $table->string('attach_document')->nullable();
             $table->unsignedBigInteger('supplier_id');
