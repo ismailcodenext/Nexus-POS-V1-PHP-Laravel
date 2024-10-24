@@ -11,7 +11,7 @@
                     <button type="button" id="delete-modal-close" class="btn mx-2 delete-custom-close"
                         style="background: #016a70; color: #fff;" data-bs-dismiss="modal">Cancel</button>
                     <button onclick="itemDelete()" type="button" id="confirmDelete"
-                        class="btn bg-gradient-danger">Delete</button>
+                        class="btn bg-gradient-danger" style="background: #bd0000; color: #fff;">Delete</button>
                 </div>
             </div>
         </div>

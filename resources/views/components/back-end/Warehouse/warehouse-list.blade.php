@@ -373,8 +373,8 @@
 
         $('.custom-delete-modal-btn').on('click', function() {
             let id = $(this).data('id');
-            $("#custom-modal-2").modal('show');
             $("#deleteID").val(id);
+            $("#custom-modal-2").modal('show');
         });
     } catch (e) {
         unauthorized(e.response.status);

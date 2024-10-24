@@ -11,7 +11,7 @@
                     <button type="button" id="delete-modal-close" class="btn mx-2 delete-custom-close"
                         style="background: #016a70; color: #fff;" data-bs-dismiss="modal">Cancel</button>
                     <button onclick="itemDelete()" type="button" id="confirmDelete"
-                        class="btn bg-gradient-danger">Delete</button>
+                        class="btn bg-gradient-danger" style="background: #bd0000; color: #fff;">Delete</button>
                 </div>
             </div>
         </div>
@@ -24,12 +24,12 @@
 async function itemDelete() {
     try {
         let id = document.getElementById('deleteID').value;
-        showLoader(); // Show loader while the request is being processed
+        showLoader();
 
         // Make the request to delete the brand
         let res = await axios.post("/api/delete-product", { id: id }, HeaderToken());
 
-        hideLoader(); // Hide loader after request completion
+        hideLoader();
         const modal = document.getElementById('custom-modal-2');
         openModal(modal);
 
